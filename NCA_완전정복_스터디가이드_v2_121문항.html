@@ -1,0 +1,2736 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>NCA 완전정복 스터디가이드 v2 - 121문항</title>
+<style>
+:root{--bg:#0f1117;--bg2:#1a1d27;--bg3:#232736;--border:rgba(255,255,255,.08);--text:#e8eaf0;--text2:#9ba3b8;--text3:#6b7488;--green:#00d97e;--blue:#4c9eff;--yellow:#ffd166;--red:#ff6b6b;--purple:#b197fc;--teal:#38d9c0;--radius:10px;--rsm:6px;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:"Pretendard","Apple SD Gothic Neo","Noto Sans KR",sans-serif;font-size:15px;line-height:1.7;}
+.layout{display:flex;min-height:100vh;}
+.sidebar{width:230px;min-width:230px;background:var(--bg2);border-right:1px solid var(--border);padding:24px 0;position:sticky;top:0;height:100vh;overflow-y:auto;}
+.main{flex:1;padding:40px 48px;max-width:920px;}
+.sidebar-logo{padding:0 20px 24px;border-bottom:1px solid var(--border);margin-bottom:16px;}
+.sidebar-logo .badge{background:var(--green);color:#000;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;letter-spacing:.5px;}
+.sidebar-logo h2{font-size:14px;font-weight:600;margin-top:8px;}
+.sidebar-logo p{font-size:11px;color:var(--text3);margin-top:2px;}
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 20px;cursor:pointer;transition:all .15s;font-size:13px;color:var(--text2);border-left:3px solid transparent;}
+.nav-item:hover{background:var(--bg3);color:var(--text);}
+.nav-item.active{background:var(--bg3);color:var(--green);border-left-color:var(--green);}
+.nav-item .num{font-size:10px;background:var(--bg3);padding:1px 6px;border-radius:10px;color:var(--text3);margin-left:auto;}
+.nav-item.active .num{background:rgba(0,217,126,.1);color:var(--green);}
+.nav-section{padding:16px 20px 6px;font-size:10px;font-weight:700;color:var(--text3);letter-spacing:1px;text-transform:uppercase;}
+.section{display:none;}.section.active{display:block;}
+.section-header{margin-bottom:32px;}
+.section-tag{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;padding:4px 12px;border-radius:20px;margin-bottom:12px;letter-spacing:.5px;}
+.section-header h1{font-size:26px;font-weight:700;line-height:1.3;}
+.section-header p{color:var(--text2);margin-top:8px;font-size:14px;}
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:20px 24px;margin-bottom:16px;}
+.card-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
+.info-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:20px 24px;}
+.info-card.green{border-color:rgba(0,217,126,.25);background:rgba(0,217,126,.04);}
+.info-card.blue{border-color:rgba(76,158,255,.25);background:rgba(76,158,255,.04);}
+.info-card.yellow{border-color:rgba(255,209,102,.25);background:rgba(255,209,102,.04);}
+.info-card.teal{border-color:rgba(56,217,192,.25);background:rgba(56,217,192,.04);}
+.info-card h4{font-size:13px;font-weight:600;margin-bottom:10px;}
+.info-card.green h4{color:var(--green);}.info-card.blue h4{color:var(--blue);}
+.info-card.yellow h4{color:var(--yellow);}.info-card.teal h4{color:var(--teal);}
+.info-card p,.info-card li{font-size:13px;color:var(--text2);line-height:1.8;}
+.info-card ul{padding-left:16px;}
+.term-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.term{background:var(--bg3);border-radius:var(--rsm);padding:14px 16px;}
+.term .label{font-size:12px;font-weight:600;color:var(--blue);margin-bottom:4px;}
+.term p{font-size:13px;color:var(--text2);line-height:1.6;}
+.q-section-title{font-size:16px;font-weight:600;margin:32px 0 16px;display:flex;align-items:center;gap:10px;}
+.q-section-title span{font-size:12px;background:var(--bg3);padding:2px 10px;border-radius:20px;color:var(--text3);font-weight:400;}
+.q-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:10px;overflow:hidden;}
+.q-header{display:flex;align-items:flex-start;gap:14px;padding:16px 20px;cursor:pointer;transition:background .15s;}
+.q-header:hover{background:var(--bg3);}
+.q-num{min-width:28px;height:28px;border-radius:8px;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:var(--text3);}
+.q-text{flex:1;font-size:14px;line-height:1.6;}
+.q-toggle{color:var(--text3);font-size:18px;transition:transform .2s;margin-left:8px;}
+.q-card.open .q-toggle{transform:rotate(180deg);}
+.q-body{display:none;padding:0 20px 20px;border-top:1px solid var(--border);}
+.q-card.open .q-body{display:block;}
+.q-choices{margin:12px 0;}
+.q-choice{display:flex;align-items:flex-start;gap:10px;padding:8px 12px;border-radius:6px;margin-bottom:6px;font-size:13px;color:var(--text2);background:var(--bg3);}
+.q-choice.correct{background:rgba(0,217,126,.1);color:#00d97e;border:1px solid rgba(0,217,126,.2);}
+.q-choice-num{min-width:20px;font-weight:600;}
+.q-answer{margin-top:14px;padding:14px 16px;background:rgba(0,217,126,.06);border:1px solid rgba(0,217,126,.2);border-radius:var(--rsm);}
+.q-answer .ans-label{font-size:11px;font-weight:700;color:var(--green);letter-spacing:.5px;margin-bottom:6px;}
+.q-answer p{font-size:13px;color:var(--text2);line-height:1.7;}
+.q-answer strong{color:var(--text);}
+.q-tip{margin-top:10px;padding:12px 16px;background:rgba(255,209,102,.08);border:1px solid rgba(255,209,102,.2);border-radius:var(--rsm);font-size:13px;color:var(--text2);}
+.q-tip strong{color:var(--yellow);}
+.tag{display:inline-block;font-size:11px;padding:2px 8px;border-radius:20px;font-weight:500;margin-right:4px;}
+.tag.multi{background:rgba(255,107,107,.15);color:#ff6b6b;}
+.hl{color:var(--green);font-weight:600;}
+.cmp-table{width:100%;border-collapse:collapse;font-size:13px;margin:12px 0;}
+.cmp-table th{background:var(--bg3);color:var(--text2);padding:8px 14px;text-align:left;border-bottom:1px solid var(--border);font-weight:600;}
+.cmp-table td{padding:8px 14px;border-bottom:1px solid var(--border);color:var(--text2);}
+.cmp-table tr:last-child td{border-bottom:none;}
+.cmp-table td:first-child{color:var(--text);font-weight:500;}
+::-webkit-scrollbar{width:6px;}::-webkit-scrollbar-track{background:var(--bg);}::-webkit-scrollbar-thumb{background:var(--bg3);border-radius:3px;}
+@media(max-width:768px){.layout{flex-direction:column;}.sidebar{width:100%;height:auto;position:relative;}.main{padding:24px 20px;}.card-grid,.term-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="layout">
+<nav class="sidebar">
+<div class="sidebar-logo">
+  <div class="badge">NCA</div>
+  <h2>완전정복 스터디가이드</h2>
+  <p>총 121문항 · 10개 섹션</p>
+</div>
+<div class="nav-section">섹션별 개념</div>
+<div class="nav-item active" onclick="showSection('s1')">☁️ 클라우드 기초 & 플랫폼 <span class="num">11</span></div>
+<div class="nav-item" onclick="showSection('s2')">🖥️ Compute / Server <span class="num">22</span></div>
+<div class="nav-item" onclick="showSection('s3')">💾 Storage <span class="num">19</span></div>
+<div class="nav-item" onclick="showSection('s4')">🌐 Network / VPC / ACG <span class="num">23</span></div>
+<div class="nav-item" onclick="showSection('s5')">⚖️ Load Balancer & CDN <span class="num">21</span></div>
+<div class="nav-item" onclick="showSection('s6')">📈 Auto Scaling <span class="num">5</span></div>
+<div class="nav-item" onclick="showSection('s7')">🗄️ Database & Analytics <span class="num">8</span></div>
+<div class="nav-item" onclick="showSection('s8')">🔒 Security & Monitoring <span class="num">6</span></div>
+<div class="nav-item" onclick="showSection('s9')">🤖 AI & Application <span class="num">3</span></div>
+<div class="nav-item" onclick="showSection('s10')">🧩 기타 서비스 <span class="num">3</span></div>
+</nav>
+<main class="main">
+<div id="s1" class="section">
+<div class="section-header">
+  <div class="section-tag" style="background:rgba(56,217,192,.1);color:var(--teal)">☁️ SECTION 01</div>
+  <h1>클라우드 기초 개념 & NCP 플랫폼 개요</h1>
+  <p>NCA 시험의 가장 기본적인 파트. 플랫폼 구조, 리전, 서비스 카테고리를 이해하자.</p>
+</div>
+<div class="card-grid">
+  <div class="info-card green"><h4>🎯 왜 중요한가</h4><ul><li>시험 전반에 깔린 기초 지식</li><li>리전/존 구조는 다른 서비스 이해에 필수</li><li>서비스 카테고리 암기 문제 자주 출제</li><li>NCP 고유 상품명 vs AWS/GCP 구분</li></ul></div>
+  <div class="info-card yellow"><h4>📌 중점 공부 포인트</h4><ul><li>리전 목록 암기 (어떤 나라/도시인지)</li><li>전문화된 클라우드 3종 암기</li><li>AWS 상품명과 혼동 주의</li><li>CLI 명령어 이름 (ncloud)</li><li>CAPEX/OPEX 개념</li></ul></div>
+</div>
+<div class="info-card blue" style="margin-bottom:16px"><h4>📚 공부 방법</h4><p>NCP 공식 문서의 제품 카테고리를 먼저 훑어보면서 어떤 상품이 어느 카테고리에 속하는지 큰 그림을 잡아. AWS를 알고 있다면 대응 관계를 매핑해보면 효과적이야.</p></div>
+<div class="q-section-title">핵심 개념 & 용어</div>
+<div class="term-grid">
+<div class="term"><div class="label">리전 (Region)</div><p>한국(KR), 미국 서부(US-West), 일본(JP), 홍콩(HK), 싱가포르(SG), 독일(DE). <strong style="color:var(--red)">미국 동부(US-East)는 없음!</strong></p></div>
+<div class="term"><div class="label">전문화된 클라우드</div><p>민간, 금융, 공공 3종. <strong style="color:var(--red)">아카데미 없음!</strong></p></div>
+<div class="term"><div class="label">Outpost vs NCP</div><p>Outpost = AWS 상품. NCP 유사 서비스 = Neurocloud</p></div>
+<div class="term"><div class="label">CLI 명령어</div><p>NCP 터미널 관리 명령어 = <strong style="color:var(--green)">ncloud</strong></p></div>
+<div class="term"><div class="label">서비스 카테고리 예시</div><p>Cloud Hadoop → Analytics / VMware on Ncloud → Hybrid &amp; Private Cloud / SSL VPN → Security</p></div>
+<div class="term"><div class="label">CAPEX vs OPEX</div><p>클라우드 = OPEX(운영비용) 모델. 레거시 = CAPEX(자본적 지출) 모델</p></div>
+</div>
+
+<div class="q-section-title">관련 기출문제 해설 <span>11문항</span></div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">58</div>
+    <div class="q-text">클라우드의 특징에 대해 잘못 설명한 것은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice correct"><span class="q-choice-num">1)</span> 동일한 네트워크 사용량 기준으로 Legacy보다 클라우드가 저렴하다.</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> Scale-In/Out이 Legacy 인프라보다 자유롭다.</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> 요금은 종량제가 기본이나 상품에 따라 정액제도 존재한다.</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> 사용할 수 있는 서버 OS가 제한된다.</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 1번</div>
+      <p>클라우드가 무조건 싸다는 건 함정! 트래픽이 고정적이고 대용량인 경우엔 종량제 클라우드 비용이 레거시보다 비쌀 수 있어. 클라우드의 진짜 장점은 유연성과 초기 투자 불필요.</p>
+    </div>
+    <div class="q-tip"><strong>💡</strong> 클라우드 = 항상 저렴이라는 선택지는 무조건 의심해봐.</div>
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">71</div>
+    <div class="q-text">클라우드 장점이 아닌 것은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice correct"><span class="q-choice-num">1)</span> 동일한 성능 서버 비교 시 Legacy보다 클라우드가 비용 경쟁력이 높다.</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> 서버 구성 시 짧은 시간 내에 구성이 가능하다.</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> 기본적인 보안 장비 및 네트워크가 구성되어 있다.</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> 오토스케일링 플랫폼과 같이 비용 효율적인 상품들이 준비되어 있다.</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 1번</div>
+      <p>클라우드는 유연성과 속도가 장점이지만, 단순히 동일 성능 대비 비용만 따지면 레거시가 더 저렴할 수 있어. 58번과 동일 개념!</p>
+    </div>
+    
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">113</div>
+    <div class="q-text">클라우드의 비용과 관련이 가장 높은 개념은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> TCO (총 소요 비용)</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> ROI (투자 자본 수익률)</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> CAPEX (자본적 지출)</div>
+<div class="q-choice correct"><span class="q-choice-num">4)</span> OPEX (운영 비용)</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 4번</div>
+      <p>초기 투자(CAPEX) 대신 사용한 만큼 지불하는 운영 비용(OPEX) 중심의 경제 모델이야.</p>
+    </div>
+    <div class="q-tip"><strong>💡</strong> 클라우드 = OPEX 모델. 반면 레거시 서버 구매는 CAPEX.</div>
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">5</div>
+    <div class="q-text">현재 NCP에서 제공되지 않는 리전은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> 홍콩</div>
+<div class="q-choice correct"><span class="q-choice-num">2)</span> 미국 동부</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> 일본</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> 독일</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 2번</div>
+      <p>미국은 서부(US-West)만 운영! 동부는 없어.</p>
+    </div>
+    <div class="q-tip"><strong>💡</strong> NCP 리전 = KR, JP, HK, SG, DE, US-West. US-East는 AWS 것!</div>
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">6</div>
+    <div class="q-text">NCP에서 제공하지 않는 전문화된 클라우드는?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> 금융 클라우드</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> 민간 클라우드</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> 공공 클라우드</div>
+<div class="q-choice correct"><span class="q-choice-num">4)</span> 아카데미 클라우드</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 4번</div>
+      <p>NCP 전문화 클라우드 = 민간 + 금융 + 공공 딱 3개. 아카데미는 없어!</p>
+    </div>
+    
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">2</div>
+    <div class="q-text">NCP에서 제공하는 상품이 아닌 것은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> Cloud Functions</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> Container Registry</div>
+<div class="q-choice correct"><span class="q-choice-num">3)</span> Outpost</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> SourcePipeline</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 3번</div>
+      <p>Outpost = AWS 상품! NCP의 유사 서비스는 Neurocloud. SourcePipeline은 NCP의 CI/CD 서비스야.</p>
+    </div>
+    
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">7</div>
+    <div class="q-text">콘솔에서 서비스를 신청할 수 없는 서비스는?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice correct"><span class="q-choice-num">1)</span> 백업 서비스</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> 서버 이미지 생성</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> 스냅샷 기능</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> 모니터링 서비스</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 1번</div>
+      <p>백업 서비스는 단순 클릭이 아닌 별도 이용 신청 + 정책 설정이 필요한 부가 서비스야.</p>
+    </div>
+    
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">57</div>
+    <div class="q-text">NCP CLI를 이용할 때 사용하는 명령어는?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> Ncpcli</div>
+<div class="q-choice correct"><span class="q-choice-num">2)</span> Ncloud</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> Ncloudcli</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> Ncli</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 2번</div>
+      <p>NCP 리소스를 터미널에서 관리하는 명령어는 ncloud.</p>
+    </div>
+    
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">59</div>
+    <div class="q-text">&quot;VMware on Ncloud&quot; 상품은 어느 카테고리?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> Compute</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> Server</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> Management</div>
+<div class="q-choice correct"><span class="q-choice-num">4)</span> Hybrid &amp; Private Cloud</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 4번</div>
+      <p>VMware처럼 외부 인프라와 연동하는 서비스는 Hybrid &amp; Private Cloud 카테고리.</p>
+    </div>
+    
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">65</div>
+    <div class="q-text">현재 NCP에서 운영하고 있지 않은 소통 채널은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> 블로그</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> 유튜브</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> 페이스북</div>
+<div class="q-choice correct"><span class="q-choice-num">4)</span> 트위터</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 4번</div>
+      <p>NCP는 블로그, 유튜브, 페이스북 등을 운영하지만 트위터는 공식 채널로 운영하지 않아.</p>
+    </div>
+    <div class="q-tip"><strong>💡</strong> 69번 챗봇 채널에서도 트위터가 안 되는 것과 함께 기억해둬.</div>
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">93</div>
+    <div class="q-text">Networking 카테고리 상품이 아닌 것은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> IPSec VPN</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> Load Balancer</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> NAT Gateway</div>
+<div class="q-choice correct"><span class="q-choice-num">4)</span> SSL VPN</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 4번</div>
+      <p>SSL VPN은 Networking이 아닌 Security 카테고리에 속해.</p>
+    </div>
+    <div class="q-tip"><strong>💡</strong> IPSec VPN은 네트워크 연결용이라 Networking, SSL VPN은 사용자 접속 보안이라 Security.</div>
+  </div>
+</div>
+</div><div id="s2" class="section">
+<div class="section-header">
+  <div class="section-tag" style="background:rgba(76,158,255,.1);color:var(--blue)">🖥️ SECTION 02</div>
+  <h1>Compute / Server</h1>
+  <p>서버 타입, 스펙, 운영 방법, Init Script까지 — 실제 클라우드 운영에서 가장 기본이 되는 파트.</p>
+</div>
+<div class="card-grid">
+  <div class="info-card green"><h4>🎯 왜 중요한가</h4><ul><li>출제 비중이 가장 높은 파트 중 하나</li><li>서버 정지 필요/불필요 케이스 암기 필수</li><li>서버 타입별 차이점(베어메탈, GPU, 마이크로)</li><li>Init Script 명령어 (-y, enable)</li></ul></div>
+  <div class="info-card yellow"><h4>📌 중점 공부 포인트</h4><ul><li>서버 정지 필요 vs 불필요 작업 구분</li><li>베어메탈 RAID 옵션 (1가지가 아님)</li><li>마이크로서버 지원 OS (Windows 없음)</li><li>GPU 최대 개수·정지 시 요금</li><li>서버 타입별 CPU:RAM 비율</li></ul></div>
+</div>
+<div class="info-card blue" style="margin-bottom:16px"><h4>📚 공부 방법</h4><p>서버 관련 문제는 숫자(최대 개수, 용량)와 예외 케이스(정지 불필요한 작업, 지원 안 되는 OS)가 함정이야. 표로 정리해서 비교하며 외우는 게 가장 효과적.</p></div>
+<div class="q-section-title">핵심 개념 & 용어</div>
+<div class="term-grid">
+<div class="term"><div class="label">서버 정지 불필요</div><p>이미지 생성, 스냅샷, 공인IP 부여. <strong style="color:var(--red)">스펙 변경·반납은 정지 필요</strong></p></div>
+<div class="term"><div class="label">Init Script</div><p>자동화 설치: <strong style="color:var(--green)">yum install -y</strong> (-y 필수!). 자동 시작: <strong style="color:var(--green)">systemctl enable</strong>. PHP 미지원.</p></div>
+<div class="term"><div class="label">서버 타입 RAM 비율</div><p>Standard 1:4 / High-CPU 1:2 / High-Memory 1:8</p></div>
+<div class="term"><div class="label">마이크로서버</div><p>1vCPU/1GB. OS: CentOS/Ubuntu만 (Windows 없음!). 1년 무료.</p></div>
+<div class="term"><div class="label">GPU 서버</div><p>최대 4개/VM. 제공: P40, T4, V100. <strong style="color:var(--red)">정지해도 요금 발생!</strong></p></div>
+<div class="term"><div class="label">베어메탈 RAID</div><p>RAID 1/5/10 선택 가능 (RAID 1만 X). Oracle Linux 지원.</p></div>
+</div>
+
+<div class="q-section-title">관련 기출문제 해설 <span>22문항</span></div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">8</div>
+    <div class="q-text"><span class="tag multi">복수정답</span> 서버 정지가 필요한 경우가 아닌 것은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice correct"><span class="q-choice-num">1)</span> 서버 이미지 생성</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> 서버 스펙 변경</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> 서버 반납</div>
+<div class="q-choice correct"><span class="q-choice-num">4)</span> 공인 IP 부여</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 1번, 4번</div>
+      <p>이미지 생성(스냅샷 기반)과 공인 IP 부여(네트워크 매핑)는 구동 중에도 즉시 처리 가능. 스펙 변경과 반납은 정지 필요.</p>
+    </div>
+    <div class="q-tip"><strong>💡</strong> 정지 불필요 = 이미지생성, 공인IP 부여, 스냅샷</div>
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">37</div>
+    <div class="q-text">사전에 서버 정지가 필수적인 기능은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> 내 서버 이미지</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> 스냅샷</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> 서버 이미지 빌더</div>
+<div class="q-choice correct"><span class="q-choice-num">4)</span> 서버 반납</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 4번</div>
+      <p>자원 완전 회수와 데이터 정합성을 위해 서버 반납 시 정지는 필수. 이미지 생성과 스냅샷은 구동 중 가능.</p>
+    </div>
+    
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">13</div>
+    <div class="q-text">베어메탈에 대한 설명 중 틀린 것은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice correct"><span class="q-choice-num">1)</span> 3가지 스펙을 제공하고 있다.</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> OS로 Oracle Linux도 제공한다.</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> 디스크 구성 시 RAID 방식을 선택할 수 있다.</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> 내 서버 이미지, 스냅샷, 추가 스토리지 기능은 제공하지 않는다.</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 1번</div>
+      <p>베어메탈은 고사양 위주의 다양한 라인업을 제공하며, 3가지로 한정되지 않아.</p>
+    </div>
+    
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">14</div>
+    <div class="q-text">Bare Metal 서버에 대한 설명 중 틀린 것은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice correct"><span class="q-choice-num">1)</span> RAID 1 구성방식만 제공한다.</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> 요금제는 시간 요금제만 제공한다.</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> Init Script 사용이 가능하다.</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> Oracle Linux가 제공된다.</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 1번</div>
+      <p>물리 서버이므로 RAID 1, 5, 10 등 다양한 구성을 사용자가 직접 선택 가능! RAID 1만 된다는 건 틀린 설명.</p>
+    </div>
+    
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">88</div>
+    <div class="q-text">Bare-Metal 서버 기능 설명으로 맞는 것은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> 스토리지 RAID 설정은 RAID 1, RAID 1+0을 제공한다.</div>
+<div class="q-choice correct"><span class="q-choice-num">2)</span> 운영체제로 Oracle Linux를 지원한다.</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> 로컬 디스크 추가가 가능하다.</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> 서버 정지 시에는 스토리지 사용 요금만 과금한다.</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 2번</div>
+      <p>물리 서버의 성능을 그대로 제공하며, 엔터프라이즈 환경을 위해 Oracle Linux를 공식 지원.</p>
+    </div>
+    
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">16</div>
+    <div class="q-text">NCP에서 VM에 최대 몇 개의 GPU를 제공할 수 있나?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> 1개</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> 2개</div>
+<div class="q-choice correct"><span class="q-choice-num">3)</span> 4개</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> 그래픽카드 종류마다 다르다</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 3번</div>
+      <p>NCP VM 서버는 단일 인스턴스에 최대 4개 GPU 할당 가능.</p>
+    </div>
+    
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">116</div>
+    <div class="q-text">NCP GPU 상품에 대한 설명 중 틀린 것은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice correct"><span class="q-choice-num">1)</span> 최대 12개의 GPU를 하나의 VM에 할당할 수 있다.</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> 서버를 정지시켜도 요금이 발생한다.</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> Linux OS를 지원한다.</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> T4, V100 등의 GPU 카드가 제공된다.</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 1번</div>
+      <p>NCP VM 서버 한 대에 할당 가능한 최대 GPU 개수는 8개이며, 12개는 불가능해.</p>
+    </div>
+    <div class="q-tip"><strong>💡</strong> 73번: GPU 서버는 정지해도 요금 할인 없음. 116번: 최대 8개(12개 X)</div>
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">118</div>
+    <div class="q-text">VPC 환경에서 제공되는 GPU 서버의 특징으로 틀린 것은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> NVDIA T4, V100 이용이 가능하다.</div>
+<div class="q-choice correct"><span class="q-choice-num">2)</span> 서버 1대당 꽂을 수 있는 T4의 최대 개수는 2개이다.</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> 서버 1대당 꽂을 수 있는 V100의 최대 개수는 4개이다.</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> Grid 기술을 사용할 수 있다.</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 2번</div>
+      <p>고사양 모델의 경우 T4 카드를 2개보다 더 많이 장착할 수 있는 구성도 존재해.</p>
+    </div>
+    
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">39</div>
+    <div class="q-text">NCP에서 제공하는 GPU 카드는?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> P40</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> T4</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> V100</div>
+<div class="q-choice correct"><span class="q-choice-num">4)</span> P40, T4, V100 모두 제공</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 4번</div>
+      <p>NCP는 학습(P40, V100)과 추론(T4) 용도에 맞춰 3가지 모두 제공.</p>
+    </div>
+    
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">73</div>
+    <div class="q-text">VPC에서 서버 정지 시 요금 할인이 적용되지 않는 서버 타입은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> Standard</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> High-CPU</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> High-Memory</div>
+<div class="q-choice correct"><span class="q-choice-num">4)</span> GPU</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 4번</div>
+      <p>GPU 서버는 자원 점유 특성상 서버를 정지해도 요금 할인이 적용되지 않아.</p>
+    </div>
+    <div class="q-tip"><strong>💡</strong> GPU 서버 = 정지해도 과금 계속됨. 꼭 암기!</div>
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">34</div>
+    <div class="q-text">CentOS 7.x에서 Init Script로 HTTPD를 자동 설치하는 올바른 명령어는?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> install httpd</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> yum install httpd</div>
+<div class="q-choice correct"><span class="q-choice-num">3)</span> yum install -y httpd</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> yum install -a httpd</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 3번</div>
+      <p>Init Script는 비대화형(non-interactive)으로 실행돼. -y 옵션이 없으면 질문에서 멈춰버림. 자동화에서 -y는 필수!</p>
+    </div>
+    <div class="q-tip"><strong>💡</strong> yum install -y = yes를 자동으로 답하겠다.</div>
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">78</div>
+    <div class="q-text">CentOS 7.x에서 HTTPD가 자동으로 가동되도록 Init Script에 입력할 명령어는?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> systemctl start httpd</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> chkconfig start httpd</div>
+<div class="q-choice correct"><span class="q-choice-num">3)</span> systemctl enable httpd</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> chkconfig on httpd</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 3번</div>
+      <p>CentOS 7 이상에서 서비스가 부팅 시 자동 시작되도록 설정하는 정석 명령어는 systemctl enable.</p>
+    </div>
+    <div class="q-tip"><strong>💡</strong> start = 지금 당장 시작. enable = 재부팅 후에도 자동 시작. Init Script에선 enable!</div>
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">87</div>
+    <div class="q-text">Linux용 Init Script로 생성 불가능한 스크립트 언어는?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> bash</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> perl</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> python</div>
+<div class="q-choice correct"><span class="q-choice-num">4)</span> php</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 4번</div>
+      <p>Init Script는 bash, perl, python 등 지원하나 php는 지원하지 않아.</p>
+    </div>
+    
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">35</div>
+    <div class="q-text">마이크로서버에 대한 설명 중 틀린 것은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> Network interface를 만들 수 없다.</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> 1vCPU, 1GB 메모리이다.</div>
+<div class="q-choice correct"><span class="q-choice-num">3)</span> OS는 CentOS, Ubuntu, Windows를 지원한다.</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> 결제수단 최초 등록 월부터 1년간 이용요금이 무료이다.</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 3번</div>
+      <p>마이크로서버는 무료 티어용으로 리눅스(CentOS/Ubuntu)만 지원. Windows는 제외야.</p>
+    </div>
+    
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">72</div>
+    <div class="q-text">NCP에서 제공하지 않는 OS는?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> CentOS</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> Oracle Linux</div>
+<div class="q-choice correct"><span class="q-choice-num">3)</span> Debian</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> Ubuntu</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 3번</div>
+      <p>CentOS, Ubuntu, Oracle Linux 등은 제공하나 Debian 계열 OS는 NCP에서 공식 제공하지 않아.</p>
+    </div>
+    
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">76</div>
+    <div class="q-text">생성 불가능한 서버 스펙은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> vCPU 4개, RAM 8GB</div>
+<div class="q-choice correct"><span class="q-choice-num">2)</span> vCPU 8개, RAM 8GB</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> vCPU 2개, RAM 8GB</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> vCPU 16개, RAM 128GB</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 2번</div>
+      <p>NCP 서버 스펙은 vCPU와 RAM의 비율이 정해져 있으며, 8개 CPU에 8GB RAM 모델은 존재하지 않아.</p>
+    </div>
+    <div class="q-tip"><strong>💡</strong> Standard=1:4, High-CPU=1:2, High-Memory=1:8 비율 기억!</div>
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">80</div>
+    <div class="q-text">Standard 서버에서 생성 가능한 스펙은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice correct"><span class="q-choice-num">1)</span> vCPU 2개, RAM 8GB</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> vCPU 2개, RAM 4GB</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> vCPU 2개, RAM 16GB</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> vCPU 4개, RAM 4GB</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 1번</div>
+      <p>Standard 타입은 vCPU:RAM = 1:4 비율이 기본. vCPU 2개 × 4GB = 8GB RAM.</p>
+    </div>
+    <div class="q-tip"><strong>💡</strong> Standard 1:4, High-CPU 1:2, High-Memory 1:8</div>
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">83</div>
+    <div class="q-text">High Memory 서버에서 생성 가능한 스펙은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> vCPU 4개, RAM 8GB</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> vCPU 8개, RAM 8GB</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> vCPU 2개, RAM 8GB</div>
+<div class="q-choice correct"><span class="q-choice-num">4)</span> vCPU 16개, RAM 128GB</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 4번</div>
+      <p>대용량 메모리 타입은 CPU 대비 RAM 비중이 매우 높으며, 16개 vCPU에 128GB RAM이 대표적.</p>
+    </div>
+    
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">85</div>
+    <div class="q-text">High CPU 서버에서 생성 가능한 스펙은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice correct"><span class="q-choice-num">1)</span> vCPU 4개, RAM 8GB</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> vCPU 8개, RAM 8GB</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> vCPU 2개, RAM 8GB</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> vCPU 16개, RAM 128GB</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 1번</div>
+      <p>연산 중심 사양으로 Standard보다 상대적으로 적은 RAM 비율을 가지며 4개 vCPU에 8GB RAM (1:2).</p>
+    </div>
+    
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">41</div>
+    <div class="q-text">서버 네트워크 구성 설명 중 틀린 것은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> 서버는 기본적으로 사설 IP 대역 중 하나를 부여받는다.</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> 사설망 네트워크 대역은 최소 /28부터 최대 /16까지 설정 가능하다.</div>
+<div class="q-choice correct"><span class="q-choice-num">3)</span> Public IP를 연결하면 ifconfig에서 Public IP가 보인다.</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> 서버는 기본적으로 1Gbps 대역폭의 인터페이스를 생성한다.</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 3번</div>
+      <p>1:1 NAT 방식이라 서버 OS 내에서 ifconfig 치면 사설 IP만 보여. 공인 IP는 외부에서의 접근 주소일 뿐.</p>
+    </div>
+    <div class="q-tip"><strong>💡</strong> 마치 공유기 뒤에 있는 컴퓨터가 자기 IP를 192.168.x.x로 아는 것과 같아.</div>
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">81</div>
+    <div class="q-text">서버 패스워드에 대한 설명 중 틀린 것은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> 초기 패스워드는 서버 생성 시 생성한 인증키를 가지고 확인할 수 있다.</div>
+<div class="q-choice correct"><span class="q-choice-num">2)</span> 서버에서 패스워드를 변경 후 패스워드를 까먹은 경우 기존에 생성한 인증키를 통해 패스워드를 확인할 수 있다.</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> 서버 생성 시 생성한 인증키는 다른 인증키로 교체할 수 있다.</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> 서버 초기 패스워드는 복잡한 문자열로 부여한다.</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 2번</div>
+      <p>OS 내부에서 비밀번호를 직접 변경한 경우, 기존의 관리용 인증키로는 바뀐 번호를 알아낼 수 없어.</p>
+    </div>
+    <div class="q-tip"><strong>💡</strong> 초기 인증키로는 초기 패스워드만 확인 가능. 사용자가 변경하면 인증키는 소용없음.</div>
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">121</div>
+    <div class="q-text">내 서버 이미지에 대한 설명으로 틀린 것은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> 내 서버 이미지가 생성되는 동안 서버는 &#x27;복제중&#x27; 상태이나 정상적으로 운영된다.</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> 내 서버 이미지를 다른 리전으로 복제할 수 있다.</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> 내 서버 이미지는 오토스케일링의 Launch Configuration에서도 이용이 가능하다.</div>
+<div class="q-choice correct"><span class="q-choice-num">4)</span> 내 서버 이미지를 이용해 서버를 생성할 때, 원본 서버의 부팅스토리지 종류와 동일하게 생성된다.</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 4번</div>
+      <p>이미지로 새 서버를 만들 때, 원본과 다른 스토리지 타입(SSD/HDD)을 선택하여 생성할 수 있어.</p>
+    </div>
+    
+  </div>
+</div>
+</div><div id="s3" class="section">
+<div class="section-header">
+  <div class="section-tag" style="background:rgba(255,209,102,.1);color:var(--yellow)">💾 SECTION 03</div>
+  <h1>Storage</h1>
+  <p>Block Storage, NAS, Object Storage, Data Teleporter — 각 스토리지의 특징과 한계를 정확히 이해하자.</p>
+</div>
+<div class="card-grid">
+  <div class="info-card green"><h4>🎯 왜 중요한가</h4><ul><li>스토리지 관련 문항이 많이 출제됨</li><li>숫자(용량, 개수) 암기가 핵심</li><li>NFS vs CIFS 프로토콜 구분</li><li>증설 가능 vs 감설 불가 개념</li></ul></div>
+  <div class="info-card yellow"><h4>📌 중점 공부 포인트</h4><ul><li>Block Storage: 최대 15개/서버, 2TB/개</li><li>NAS 프로토콜: Linux=NFS, Windows=CIFS</li><li>Data Teleporter 반납 기간: 30일</li><li>SSD IOPS 공식: 용량×40</li><li>백업 보관 기간: 최소 7일~최대 24주</li></ul></div>
+</div>
+<div class="info-card blue" style="margin-bottom:16px"><h4>📚 공부 방법</h4><p>스토리지 문제는 숫자와 프로토콜이 핵심이야. 비교표를 만들어서 Block Storage / NAS / Object Storage의 차이를 한눈에 볼 수 있게 정리해봐.</p></div>
+<div class="q-section-title">스토리지 종류 비교표</div>
+<div class="card">
+<table class="cmp-table">
+<thead><tr><th>구분</th><th>Block Storage</th><th>NAS</th><th>Object Storage</th></tr></thead>
+<tbody>
+<tr><td>공유 가능</td><td>❌ 서버 1대에만</td><td>✅ 여러 서버</td><td>✅ (HTTP API)</td></tr>
+<tr><td>최대 용량</td><td>2TB/개, 15개/서버</td><td>최소 500GB~10TB 동적</td><td>사실상 무제한</td></tr>
+<tr><td>프로토콜</td><td>-</td><td>NFS(Linux)/CIFS(Windows)</td><td>S3 호환</td></tr>
+<tr><td>스냅샷</td><td>✅</td><td>✅ 자동 스냅샷</td><td>❌</td></tr>
+<tr><td>감설(축소)</td><td>❌</td><td>❌</td><td>-</td></tr>
+<tr><td>IOPS(SSD)</td><td>1GB당 40 IOPS</td><td>볼륨 크기에 따라 다름</td><td>-</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="q-section-title">관련 기출문제 해설 <span>19문항</span></div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">40</div>
+    <div class="q-text">단일 추가 스토리지당 최대 용량은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> 1TB</div>
+<div class="q-choice correct"><span class="q-choice-num">2)</span> 2TB</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> 3TB</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> 4TB</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 2번</div>
+      <p>단일 블록 스토리지 최대 = 2TB.</p>
+    </div>
+    
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">38</div>
+    <div class="q-text">Block Storage에 대한 설명 중 잘못된 것은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> 모든 요소가 이중화되어 데이터 손실 방지를 최우선으로 설계되었다.</div>
+<div class="q-choice correct"><span class="q-choice-num">2)</span> 2000GB까지 생성 가능하며, 서버 1대당 10개의 스토리지를 사용할 수 있다.</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> 기동 중단 없이 탄력적으로 성능 변경이 가능하다.</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> HDD/SSD 두 가지 타입으로 제공된다.</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 2번</div>
+      <p>Block Storage는 개당 최대 2TB까지, 서버 1대당 최대 15개까지 연결 가능. 10개가 아니야!</p>
+    </div>
+    
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">53</div>
+    <div class="q-text">Block Storage에서 제공하는 기능이 아닌 것은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> Detach / Attach 기능</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> Snapshot 기능</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> Disk 용량 증설</div>
+<div class="q-choice correct"><span class="q-choice-num">4)</span> Disk 용량 축소</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 4번</div>
+      <p>Block Storage는 용량 증설만 지원. 축소(감설)는 지원하지 않아.</p>
+    </div>
+    
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">36</div>
+    <div class="q-text">CentOS VM에서 파일시스템 증설 관련 내용 중 틀린 것은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> 콘솔에서 Block Storage 크기 변경 시 Agent가 파일시스템을 자동 확장한다.</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> 최초 구축 시 Block Storage를 LVM으로 구성하여 PV, LV를 추가 확장할 수 있다.</div>
+<div class="q-choice correct"><span class="q-choice-num">3)</span> Block Storage 크기 변경 액션을 통해 자유롭게 증설/감설 할 수 있다.</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> 크기 변경 시 대상 블록 스토리지가 사용 중이면 파일시스템 연결 해제가 필요하다.</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 3번</div>
+      <p>클라우드 디스크는 증설(늘리기)은 가능, 감설(줄이기)은 불가능!</p>
+    </div>
+    
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">82</div>
+    <div class="q-text">SSD 스토리지의 크기가 400GB일 때 MAX IOPS는?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> 2000</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> 8000</div>
+<div class="q-choice correct"><span class="q-choice-num">3)</span> 16000</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> 20000</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 3번</div>
+      <p>SSD는 1GB당 40 IOPS를 제공하므로, 400GB × 40 = 16,000 IOPS가 할당돼.</p>
+    </div>
+    <div class="q-tip"><strong>💡</strong> 공식 암기: SSD MAX IOPS = 용량(GB) × 40</div>
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">84</div>
+    <div class="q-text">서버 생성 시 선택 가능한 스토리지 종류에 대한 설명 중 틀린 것은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> SSD 타입은 저장장치가 SSD인 디스크이다.</div>
+<div class="q-choice correct"><span class="q-choice-num">2)</span> HDD 타입은 저장장치가 SATA인 디스크이다.</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> 서버 타입에 따라 NVMe 디스크를 사용할 수 있다.</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> SSD 타입은 MAX IOPS가 지정된다</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 2번</div>
+      <p>HDD 타입은 SATA 방식이 아닌 가상화된 Network Attached 기반의 HDD를 의미해.</p>
+    </div>
+    
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">90</div>
+    <div class="q-text">서버 스토리지에 대한 설명으로 맞는 것은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> 부팅 스토리지가 HDD인 경우, 추가 스토리지로 HDD만 추가할 수 있다.</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> VM이 운영 중인 상태에서도 Disk 변경이 가능하다.</div>
+<div class="q-choice correct"><span class="q-choice-num">3)</span> 디스크의 사이즈를 기존보다 크게만 변경이 가능하다.</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> High-Memory, Bare-Metal 서버의 경우 스토리지 추가가 지원되지 않는다.</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 3번</div>
+      <p>데이터 안정성을 위해 디스크 크기는 기존보다 늘리는 것만 가능하며, 줄이는 것은 기술적으로 불가.</p>
+    </div>
+    
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">15</div>
+    <div class="q-text">서버에 스토리지 추가와 관련하여 틀리게 설명한 것은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> Linux LVM, Windows 동적디스크로 여러 디스크를 하나의 볼륨으로 묶을 수 있다.</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> 서버에 연결된 디스크를 다른 서버로 옮길 수 있다.</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> 최대 15개의 스토리지를 추가할 수 있다.</div>
+<div class="q-choice correct"><span class="q-choice-num">4)</span> 100GB, 500GB, 1TB 단위의 용량만 추가할 수 있다.</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 4번</div>
+      <p>추가 스토리지는 최소 10GB부터 최대 2TB까지 10GB 단위로 자유롭게 생성 가능. 고정 단위가 아님!</p>
+    </div>
+    
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">17</div>
+    <div class="q-text">스토리지 상품 특징에 대한 설명으로 맞는 것은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> NAS는 10GB, 100GB, 500GB 등 다양한 단위로 스토리지 증가가 가능하다.</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> Block Storage와 NAS는 모두 공유 가능한 스토리지이다.</div>
+<div class="q-choice correct"><span class="q-choice-num">3)</span> NAS는 동적으로 볼륨 사이즈 조정이 가능하고, 자동 스냅샷 및 이벤트 알람 기능을 제공한다.</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> NAS는 Windows 서버만 이용할 수 있다.</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 3번</div>
+      <p>NAS의 핵심 특징: ①동적 용량 조절 ②자동 스냅샷 ③이벤트 알람 ④여러 서버 공유. Block Storage는 단일 서버 전용.</p>
+    </div>
+    
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">11</div>
+    <div class="q-text">Data Teleporter에 대한 설명으로 잘못된 것은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> 한 대당 100TB 저장용량을 가진다.</div>
+<div class="q-choice correct"><span class="q-choice-num">2)</span> 별도 요청 없으면 최초 대여 후 60일 이내에 반환해야 한다.</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> 256비트 암호화되며, 암호화 키는 장치에 저장되지 않는다.</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> Linux/Windows 모두 NFS 또는 CIFS 공유 파일시스템으로 연결 가능하다.</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 2번</div>
+      <p>Data Teleporter 기본 대여 기간은 30일. 60일이 아니야.</p>
+    </div>
+    <div class="q-tip"><strong>💡</strong> AWS의 Snowball과 유사한 물리 데이터 이전 서비스. 기간 = 30일!</div>
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">12</div>
+    <div class="q-text">NAS에 대한 설명 중 잘못된 것은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> 임계치 설정에 따른 이벤트 알림 기능을 제공한다.</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> 일정한 스케줄에 따라 자동 스냅샷을 제공한다.</div>
+<div class="q-choice correct"><span class="q-choice-num">3)</span> 리눅스 서버에서 공유 가능한 CIFS 프로토콜을 제공한다.</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> NAS 생성 시 마운트포인트 정보를 제공한다.</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 3번</div>
+      <p>Linux = NFS 프로토콜, Windows = CIFS 프로토콜. 리눅스에서 CIFS를 쓴다는 건 틀린 설명.</p>
+    </div>
+    <div class="q-tip"><strong>💡</strong> NFS = Network File System = Linux. CIFS = Common Internet File System = Windows.</div>
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">111</div>
+    <div class="q-text">NCP NAS에 대한 설명 중 틀린 것은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> 볼륨은 최소 500GB에서 최대 10TB까지이다.</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> 볼륨 크기에 따라 IOPS가 달라진다.</div>
+<div class="q-choice correct"><span class="q-choice-num">3)</span> 볼륨의 확장 축소는 100GB 단위로 가능하다.</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> 볼륨 개수는 계정 당 20개로 제한된다</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 3번</div>
+      <p>NAS는 용량 확장은 가능하지만 축소는 불가능해. &#x27;확장 축소 모두 가능&#x27;이라는 설명은 틀림.</p>
+    </div>
+    <div class="q-tip"><strong>💡</strong> NAS도 Block Storage처럼 증설만 가능, 감설 불가!</div>
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">119</div>
+    <div class="q-text">NAS 상품 설명 중 틀린 것은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> 자체 스냅샷 기능이 제공된다.</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> Linux Server와 Windows Server 모두 NAS를 마운트할 수 있습니다.</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> NAS 볼륨은 네이버 클라우드 플랫폼 인프라 내에 있는 서버에서만 마운트 가능합니다.</div>
+<div class="q-choice correct"><span class="q-choice-num">4)</span> NAS는 용량 한도 없이 사용할 수 있다.</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 4번</div>
+      <p>NAS는 무제한이 아니며, 상품별로 생성 가능한 최대 용량 한도가 정해져 있어.</p>
+    </div>
+    
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">89</div>
+    <div class="q-text">Object Storage에 대한 설명 중 틀린 것은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> 파일 단위의 데이터 저장, 공유, 배포가 가능하다.</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> 대용량 데이터의 저장소로 활용할 수 있다.</div>
+<div class="q-choice correct"><span class="q-choice-num">3)</span> 외부 사용자에게 파일 접근 권한을 제공하기 위해서는 반드시 폴더 공개하기 기능을 사용해야 한다.</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> CDN 상품과 연동하여 사용할 수 있다.</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 3번</div>
+      <p>외부 사용자 공유 시 반드시 폴더를 공개할 필요는 없어. 파일 단위 공유나 권한 설정으로도 가능해.</p>
+    </div>
+    
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">112</div>
+    <div class="q-text">오브젝트 스토리지의 설명 중 맞는 것은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> 오브젝트 스토리지는 2개의 인증키 사용이 가능합니다.</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> 생성된 버킷 이름은 변경할 수 있습니다.</div>
+<div class="q-choice correct"><span class="q-choice-num">3)</span> 파일에 대한 공개 여부는 개별 파일에서 설정합니다.</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> 네이버 클라우드 플랫폼의 다른 계정에 공유할 수 없습니다.</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 3번</div>
+      <p>버킷 전체 공개보다는 개별 파일(오브젝트) 단위로 접근 권한을 설정하는 것이 보안상 정석.</p>
+    </div>
+    
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">117</div>
+    <div class="q-text">오브젝트 스토리지 설명 중 틀린 것은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> 버킷 공개하기는 버킷 안의 폴더 및 파일 정보 조회 및 업로드가 가능하다.</div>
+<div class="q-choice correct"><span class="q-choice-num">2)</span> 파일 공개하기는 파일 정보 조회 및 다운로드/업로드가 가능하다.</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> 버킷 권한은 목록 조회, 업로드, ACL 조회, ACL 수정이 가능하다.</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> 파일 권한은 다운로드, ACL 조회, ACL 수정이 가능하다.</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 2번</div>
+      <p>파일 공개 시 외부 사용자는 조회 및 다운로드만 가능하며, 업로드(수정)는 할 수 없어.</p>
+    </div>
+    <div class="q-tip"><strong>💡</strong> 공개(Public) 파일 = 읽기만 가능. 쓰기는 권한이 있어야 해.</div>
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">79</div>
+    <div class="q-text">백업 상품 신청서 작성 시 필요한 정보가 아닌 것은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> 백업 받을 서버의 호스트명</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> 백업 받을 서버의 비공인 IP</div>
+<div class="q-choice correct"><span class="q-choice-num">3)</span> 백업 프로세스의 CPU 사용량 제한 여부</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> 데이터 사이즈</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 3번</div>
+      <p>백업 프로세스의 CPU 사용량 제한은 에이전트 내부 설정이지 서비스 신청서의 필수 항목이 아니야.</p>
+    </div>
+    
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">91</div>
+    <div class="q-text">백업 서비스 설명 중 틀린 것은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> 보관 주기는 백업 주기의 최소 2배 이상이 되어야 합니다.</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> 증분 백업은 전체 백업 이후 변경된 데이터만 백업하는 방식이다.</div>
+<div class="q-choice correct"><span class="q-choice-num">3)</span> 백업된 데이터는 최소 1주부터 52주까지 보관이 가능합니다.</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> 전체 백업은 백업 디렉토리의 모든 데이터를 백업합니다.</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 3번</div>
+      <p>백업 데이터의 보관 주기는 최대 24주까지 설정하는 것이 일반적. 52주(1년)는 틀린 설명.</p>
+    </div>
+    <div class="q-tip"><strong>💡</strong> 92번과 연계: 보관 기간 최소 7일 ~ 최대 24주</div>
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">92</div>
+    <div class="q-text">NCP 백업 상품의 데이터 보관 기간으로 알맞은 것은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> 최소 1일부터 최대 4주</div>
+<div class="q-choice correct"><span class="q-choice-num">2)</span> 최소 7일부터 최대 24주</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> 최소 15일부터 최대 36주</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> 최소 30일부터 최대 1년</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 2번</div>
+      <p>NCP 백업 상품 보관 정책: 최소 7일에서 최대 24주 범위 내에서 선택 가능.</p>
+    </div>
+    <div class="q-tip"><strong>💡</strong> 백업 보관 기간 = 최소 7일 ~ 최대 24주 암기!</div>
+  </div>
+</div>
+</div><div id="s4" class="section">
+<div class="section-header">
+  <div class="section-tag" style="background:rgba(177,151,252,.1);color:var(--purple)">🌐 SECTION 04</div>
+  <h1>Network / VPC / ACG / NACL</h1>
+  <p>출제 비중 최상. VPC 구조, ACG vs NACL 차이, Public IP 동작 방식을 완벽히 이해해야 해.</p>
+</div>
+<div class="card-grid">
+  <div class="info-card green"><h4>🎯 왜 중요한가</h4><ul><li>기출에서 가장 많이 출제 (20문항 이상)</li><li>ACG와 NACL의 차이가 핵심 포인트</li><li>Stateful vs Stateless 개념</li><li>숫자 암기: VPC 3개, ACG 3개/NIC, 500개/VPC</li></ul></div>
+  <div class="info-card yellow"><h4>📌 중점 공부 포인트</h4><ul><li>ACG: Stateful, NIC 단위, 최대 3개</li><li>NACL: Stateless, Subnet 단위, 우선순위</li><li>계정당 VPC 최대 3개</li><li>172.255.x.x는 사설 범위 밖 → 사용 불가</li><li>Private Subnet → NAT Gateway 필요</li><li>VPC 간 통신 → VPC Peering</li></ul></div>
+</div>
+<div class="info-card blue" style="margin-bottom:16px"><h4>📚 공부 방법</h4><p>네트워크는 개념 이해가 선행되어야 해. Stateful/Stateless, NAT Gateway vs Internet Gateway 차이를 먼저 이해하고, 그 다음 숫자(3개, 500개, /16~/28)를 암기해.</p></div>
+<div class="q-section-title">ACG vs NACL 핵심 비교</div>
+<div class="card">
+<table class="cmp-table">
+<thead><tr><th>항목</th><th>ACG</th><th>NACL</th></tr></thead>
+<tbody>
+<tr><td>적용 단위</td><td>서버 NIC</td><td>Subnet</td></tr>
+<tr><td>상태 관리</td><td style="color:var(--green)">Stateful (응답 자동 허용)</td><td style="color:var(--red)">Stateless (In/Out 각각 설정)</td></tr>
+<tr><td>Allow/Deny</td><td>Allow만</td><td>Allow + Deny</td></tr>
+<tr><td>우선순위</td><td>없음</td><td>있음</td></tr>
+<tr><td>개수 제한</td><td>NIC당 3개 / VPC당 500개</td><td>Subnet당 1개</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="q-section-title">관련 기출문제 해설 <span>23문항</span></div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">1</div>
+    <div class="q-text">Public IP에 대한 설명 중 틀린 것은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> 서버당 1개의 Public IP만 부여가 가능하다.</div>
+<div class="q-choice correct"><span class="q-choice-num">2)</span> Outbound 시에는 NCP NAT IP로 통신한다.</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> Classic 환경에서는 KR-1 존의 Public IP는 KR-2 서버에 부여 불가.</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> 서버를 반납해도 Public IP는 반납되지 않는다.</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 2번</div>
+      <p>서버에 공인 IP가 있으면 Outbound 시 NAT Gateway를 거치지 않고 자신의 공인 IP를 Source로 직접 통신해.</p>
+    </div>
+    <div class="q-tip"><strong>💡</strong> 공인 IP가 없는 서버만 NAT Gateway를 통해 외부로 나가.</div>
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">18</div>
+    <div class="q-text"><span class="tag multi">복수정답</span> VPC 환경에서 멀티존 이용이 가능한 상품은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice correct"><span class="q-choice-num">1)</span> Cloud DB for MySQL</div>
+<div class="q-choice correct"><span class="q-choice-num">2)</span> Load Balancer</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> Server</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> Cloud Hadoop</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 1번, 2번</div>
+      <p>Cloud DB와 Load Balancer는 가용성을 위해 여러 Zone에 걸쳐 구성 가능.</p>
+    </div>
+    
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">21</div>
+    <div class="q-text">VPC에서 사용 가능한 IP 대역은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> 10.0.0.0/12</div>
+<div class="q-choice correct"><span class="q-choice-num">2)</span> 172.17.0.0/16</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> 192.168.0.0/8</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> 192.168.1.0/30</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 2번</div>
+      <p>사설 IP(RFC1918): 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16. 172.17.x.x는 172.16.0.0/12 범위에 포함돼서 사용 가능. 서브넷 범위는 /16~/28 사이여야 해.</p>
+    </div>
+    <div class="q-tip"><strong>💡</strong> 192.168.0.0/8은 범위가 너무 넓고, /30은 너무 좁아서 VPC로 사용 불가.</div>
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">94</div>
+    <div class="q-text">VPC에서 사용할 수 없는 IP 대역은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> 10.0.0.0/16</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> 192.168.0.0/24</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> 172.16.0.0/16</div>
+<div class="q-choice correct"><span class="q-choice-num">4)</span> 172.255.0.0/24</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 4번</div>
+      <p>VPC는 표준 사설 IP 대역 내에서 생성해야 하며, 172.255.x.x는 사설 범위(172.16.0.0/12)를 벗어난 주소야.</p>
+    </div>
+    <div class="q-tip"><strong>💡</strong> 172.16.0.0/12 범위: 172.16.x.x ~ 172.31.x.x. 172.255는 이 범위 밖!</div>
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">97</div>
+    <div class="q-text">VPC에서 사용할 수 없는 IP 대역은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice correct"><span class="q-choice-num">1)</span> 10.0.0.0/8</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> 192.168.1.0/16</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> 172.16.0.0/24</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> 192.168.0.0/24</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 1번</div>
+      <p>VPC의 최소 마스크 크기는 /16이므로, 전체 대역인 /8은 설정할 수 없어.</p>
+    </div>
+    <div class="q-tip"><strong>💡</strong> VPC 서브넷 범위 = /16 ~ /28 사이만 가능. /8은 너무 큼!</div>
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">22</div>
+    <div class="q-text">VPC 환경에서 ACG에 대한 설명으로 옳은 것은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> 프로토콜은 TCP, UDP만 지원한다.</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> Subnet당 100개 생성이 가능하다.</div>
+<div class="q-choice correct"><span class="q-choice-num">3)</span> 서버와의 맵핑 정보 변경이 가능하다.</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> Rule에 우선순위가 있다.</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 3번</div>
+      <p>VPC ACG는 서버 생성 이후에도 자유롭게 교체하거나 매핑 정보 변경 가능. 우선순위 없고, 프로토콜은 TCP/UDP/ICMP 모두 지원.</p>
+    </div>
+    
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">25</div>
+    <div class="q-text">VPC 환경에서 ACG 룰이 적용되는 장치는?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> 서버</div>
+<div class="q-choice correct"><span class="q-choice-num">2)</span> 서버 NIC</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> IP</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> Subnet</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 2번</div>
+      <p>ACG는 서버의 네트워크 인터페이스(NIC) 단위로 적용돼. Subnet 단위는 NACL이야.</p>
+    </div>
+    
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">32</div>
+    <div class="q-text">VPC 환경의 ACG에 대한 설명 중 틀린 것은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> 아웃바운드에 대한 설정이 가능하다.</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> 접근 허용에 대한 룰을 설정한다.</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> ACG 하나당 최대 100개의 룰을 적용할 수 있다.</div>
+<div class="q-choice correct"><span class="q-choice-num">4)</span> 서버는 최대 5개의 ACG를 맵핑할 수 있다.</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 4번</div>
+      <p>하나의 서버 NIC에 최대 3개의 ACG를 동시 적용 가능. 5개가 아님!</p>
+    </div>
+    
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">47</div>
+    <div class="q-text">VPC 환경에서 서버 NIC 하나에 적용할 수 있는 ACG의 개수는?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> 2개</div>
+<div class="q-choice correct"><span class="q-choice-num">2)</span> 3개</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> 4개</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> 5개</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 2번</div>
+      <p>서버 NIC 하나당 최대 3개의 ACG 적용 가능.</p>
+    </div>
+    
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">104</div>
+    <div class="q-text">하나의 VPC에 ACG를 최대 몇 개까지 생성 가능한가?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> 5개</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> 100개</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> 300개</div>
+<div class="q-choice correct"><span class="q-choice-num">4)</span> 500개</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 4번</div>
+      <p>하나의 VPC 내에서 관리 및 생성할 수 있는 ACG의 최대 개수는 500개.</p>
+    </div>
+    <div class="q-tip"><strong>💡</strong> NIC당 3개 vs VPC당 500개 - 두 숫자 모두 암기!</div>
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">105</div>
+    <div class="q-text">VPC 환경에서 ACG에 대한 설명으로 틀린 것은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> 서버와 연결되어 있는 맵핑 정보를 변경할 수 있다.</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> VPC에 의존적이다.</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> White List 방식의 방화벽이다.</div>
+<div class="q-choice correct"><span class="q-choice-num">4)</span> Inbound에 대해서만 룰 적용이 가능하다.</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 4번</div>
+      <p>ACG는 Inbound뿐만 아니라 Outbound에 대해서도 규칙 설정이 가능해.</p>
+    </div>
+    
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">86</div>
+    <div class="q-text">사용 중인 VM에 ACG 관리 작업으로 맞는 것은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> VM 기동 중에는 ACG 변경이 불가능하므로 VM을 정지시킨 후 ACG를 변경한다.</div>
+<div class="q-choice correct"><span class="q-choice-num">2)</span> ACG는 서버 NIC에 매핑된다.</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> 하나의 서버는 최대 2개의 ACG와 매핑될 수 있다.</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> ACG는 VM당 1개만 선택할 수 있으므로 타 VM과 공유하여 사용하지 않는 것이 좋다.</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 2번</div>
+      <p>ACG는 VM 자체가 아닌 서버의 네트워크 인터페이스(NIC)에 매핑돼. 구동 중 변경도 가능.</p>
+    </div>
+    
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">44</div>
+    <div class="q-text">VPC의 NACL에 대한 설명으로 틀린 것은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> Subnet 단위로 적용된다.</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> Allow, Deny 규칙 모두 지원한다.</div>
+<div class="q-choice correct"><span class="q-choice-num">3)</span> Stateful 방식이다.</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> 우선순위에 따라 규칙을 반영한다.</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 3번</div>
+      <p>NACL은 Stateless야! Inbound/Outbound 규칙을 각각 따로 관리해야 해. Stateful은 ACG의 특징.</p>
+    </div>
+    <div class="q-tip"><strong>💡</strong> Stateful(ACG) vs Stateless(NACL) - 이 구분이 핵심!</div>
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">26</div>
+    <div class="q-text">VPC Subnet에 대한 설명으로 틀린 것은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> Private Subnet과 Public Subnet이 있다.</div>
+<div class="q-choice correct"><span class="q-choice-num">2)</span> 서버들은 Private Subnet과 Public Subnet 모두 위치할 수 있다.</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> 공인 IP가 필요한 로드밸런서는 Public Subnet에 위치한다.</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> Private Subnet에 있는 서버들은 공인 IP 부여를 할 수 없다.</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 2번</div>
+      <p>Public Subnet은 외부 인터넷 통신이 필요한 자원을 위해, Private은 내부 자원을 위해 용도가 구분돼.</p>
+    </div>
+    
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">51</div>
+    <div class="q-text">VPC Private Subnet에 대한 설명으로 틀린 것은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> Private Subnet에 있는 서버들은 공인 IP 부여를 할 수 없다.</div>
+<div class="q-choice correct"><span class="q-choice-num">2)</span> Private Subnet 서버들은 Internet Gateway를 통해 외부 인터넷으로 나갈 수 있다.</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> 일부 상품들은 기본적으로 Public Subnet에 위치해야 한다.</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> Private Subnet을 Public Subnet으로 전환할 수 없다.</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 2번</div>
+      <p>Private Subnet 서버는 Internet Gateway로 직접 나갈 수 없어. 외부 인터넷 통신이 필요하면 반드시 NAT Gateway를 거쳐야 해.</p>
+    </div>
+    
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">52</div>
+    <div class="q-text">하나의 계정으로 만들 수 있는 최대 VPC 개수는?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> 1개</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> 2개</div>
+<div class="q-choice correct"><span class="q-choice-num">3)</span> 3개</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> 4개</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 3번</div>
+      <p>하나의 계정에서 기본적으로 생성 가능한 VPC 최대 개수는 3개.</p>
+    </div>
+    
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">100</div>
+    <div class="q-text">다음이 설명하는 상품은? (다수의 서버들이 하나의 공인 IP로 외부 네트워크에 접근, Private Subnet에서 외부 인터넷 연결 시 필수)</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> Load Balancer</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> IPSec VPN</div>
+<div class="q-choice correct"><span class="q-choice-num">3)</span> NAT Gateway</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> API Gateway</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 3번</div>
+      <p>사설 Subnet 서버들이 하나의 대표 공인 IP를 통해 인터넷으로 나갈 수 있게 해주는 출입구.</p>
+    </div>
+    
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">109</div>
+    <div class="q-text">비공인 IP를 가진 다수의 서버에게 대표 공인 IP를 이용하여 외부 접속이 가능하게 해주는 상품은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> API Gateway</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> IP Gateway</div>
+<div class="q-choice correct"><span class="q-choice-num">3)</span> NAT Gateway</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> Global Route Manager</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 3번</div>
+      <p>비공인 IP 서버들이 외부 인터넷에 접속하기 위해 공인 IP를 공유하는 장비는 NAT Gateway. (100번과 동일 개념)</p>
+    </div>
+    
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">110</div>
+    <div class="q-text">VPC간 통신을 가능하게 해주는 서비스는?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> Private Subnet</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> Public Subnet</div>
+<div class="q-choice correct"><span class="q-choice-num">3)</span> VPC Peering</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> Route Table</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 3번</div>
+      <p>서로 다른 VPC를 내부망처럼 연결하여 통신하게 해주는 서비스는 VPC Peering.</p>
+    </div>
+    <div class="q-tip"><strong>💡</strong> VPC끼리 통신 = VPC Peering. 꼭 암기!</div>
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">64</div>
+    <div class="q-text">VPC 플랫폼 상품 의존성 관계 중 올바르지 않은 것은? [상품:의존성] 형태</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> VPC : 리전</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> Subnet : Zone</div>
+<div class="q-choice correct"><span class="q-choice-num">3)</span> Init Script : Zone</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> Cloud DB : Multi Zone</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 3번</div>
+      <p>Init Script는 특정 존(Zone)에 묶이지 않고 리전 내에서 공통으로 사용돼.</p>
+    </div>
+    <div class="q-tip"><strong>💡</strong> VPC→리전, Subnet→Zone, Init Script→리전(Zone 아님!), Cloud DB→Multi Zone</div>
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">95</div>
+    <div class="q-text">Classic 환경에서 NIC에 두 개 이상의 IP를 부여하였을 때 발생할 수 있는 상황은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> 기존 IP로는 통신이 되나 추가된 IP로 통신이 되지 않는다.</div>
+<div class="q-choice correct"><span class="q-choice-num">2)</span> 추가된 IP 뿐만 아니라 기존 IP도 통신이 되지 않는다.</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> 서버가 강제 정지된다.</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> 기존 IP는 통신이 안되고 추가된 IP로만 통신이 된다.</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 2번</div>
+      <p>클래식 환경에서 수동으로 NIC에 IP를 추가 부여하면 네트워크 충돌로 기존 IP까지 통신이 단절돼.</p>
+    </div>
+    <div class="q-tip"><strong>💡</strong> Classic 환경에서 NIC에 IP 수동 추가 = 전체 통신 단절! 하지 말 것.</div>
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">102</div>
+    <div class="q-text">VPC 환경에서 서버 Network Interface에 대한 설명 중 맞는 것은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice correct"><span class="q-choice-num">1)</span> 서버 Network Interface는 최대 3개까지 만들 수 있다.</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> Network Interface 하나에 여러 개의 IP를 부여할 수 있다.</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> NIC에는 해당 서버를 처음 생성할 때 선택한 Subnet 범위의 IP만 할당할 수 있다.</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> 원하는 사설IP 설정은 불가능하며, DHCP로 자동 할당만 가능하다.</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 1번</div>
+      <p>NCP VPC 서버 한 대에 장착 가능한 최대 네트워크 인터페이스(NIC)는 3개.</p>
+    </div>
+    
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">120</div>
+    <div class="q-text">Global Route Manager의 로드밸런싱 타입이 아닌 것은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> Weighted</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> Round Robin</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> Geolocation</div>
+<div class="q-choice correct"><span class="q-choice-num">4)</span> Source IP Hash</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 4번</div>
+      <p>DNS 기반 서비스인 Global Route Manager는 Source IP Hash 알고리즘을 사용하지 않아.</p>
+    </div>
+    <div class="q-tip"><strong>💡</strong> GRM 지원 타입: Weighted, Round Robin, Geolocation, Failover</div>
+  </div>
+</div>
+</div><div id="s5" class="section">
+<div class="section-header">
+  <div class="section-tag" style="background:rgba(255,107,107,.1);color:var(--red)">⚖️ SECTION 05</div>
+  <h1>Load Balancer & CDN</h1>
+  <p>LB 종류별 특징, 알고리즘, CDN 설정 개념 — 출제 빈도가 매우 높은 파트야.</p>
+</div>
+<div class="card-grid">
+  <div class="info-card green"><h4>🎯 왜 중요한가</h4><ul><li>LB 종류별 사용 케이스 구분 필수</li><li>헬스체크 주기 숫자 암기 (30초/6초)</li><li>SSL 지원 LB 종류</li><li>CDN 설정 항목 이름과 기능</li></ul></div>
+  <div class="info-card yellow"><h4>📌 중점 공부 포인트</h4><ul><li>Weighted Round Robin은 미지원!</li><li>VPC Target Group 헬스체크: 30초</li><li>Client IP 확인 → XFF 설정 필요</li><li>Root Domain에 CNAME 등록 불가</li><li>Live Station = CDN 동시 생성 가능</li><li>애플리케이션 프록시 LB는 존재하지 않음!</li></ul></div>
+</div>
+<div class="info-card blue" style="margin-bottom:16px"><h4>📚 공부 방법</h4><p>LB 문제는 종류별 특징 비교가 핵심이야. 애플리케이션/네트워크/네트워크 프록시 3종의 차이를 표로 만들어 외워. CDN은 설정 항목 이름(Purge, Ignore Query String 등)의 정의를 정확히 알아야 해.</p></div>
+<div class="q-section-title">로드밸런서 종류 비교</div>
+<div class="card">
+<table class="cmp-table">
+<thead><tr><th>종류</th><th>계층</th><th>프로토콜</th><th>특징</th></tr></thead>
+<tbody>
+<tr><td>애플리케이션 LB</td><td>L7</td><td>HTTP/HTTPS</td><td>URL 기반 분기, SSL 인증, XFF 필요</td></tr>
+<tr><td>네트워크 LB</td><td>L4</td><td>TCP/UDP</td><td>고성능, Client IP 직접 확인</td></tr>
+<tr><td>네트워크 프록시 LB</td><td>L4</td><td>TCP</td><td>세션 유지, Classic LB와 유사</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="q-section-title">관련 기출문제 해설 <span>21문항</span></div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">24</div>
+    <div class="q-text">애플리케이션 로드밸런서의 특징으로 틀린 것은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> HTTP, HTTPS 프로토콜 지원</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> 고정 IP 제공</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> URL 기반 분기 가능</div>
+<div class="q-choice correct"><span class="q-choice-num">4)</span> 별도 설정 없이 Client IP 확인 가능</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 4번</div>
+      <p>L7 LB는 Proxy 방식이라 Client IP가 LB IP로 대체돼. Client 실제 IP를 확인하려면 XFF(X-Forwarded-For) 헤더 설정이 필요해.</p>
+    </div>
+    
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">98</div>
+    <div class="q-text">NCP에서 제공하고 있지 않은 로드밸런서 방식은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> 애플리케이션 로드밸런서</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> 네트워크 로드밸런서</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> 네트워크 프록시 로드밸런서</div>
+<div class="q-choice correct"><span class="q-choice-num">4)</span> 애플리케이션 프록시 로드밸런서</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 4번</div>
+      <p>NCP는 ALB, NLB, NPLB를 제공하지만 애플리케이션 프록시 로드밸런서라는 명칭은 없어.</p>
+    </div>
+    <div class="q-tip"><strong>💡</strong> NCP LB 3종: 애플리케이션 LB / 네트워크 LB / 네트워크 프록시 LB</div>
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">43</div>
+    <div class="q-text">Load Balancer 상품에 대한 설명 중 잘못된 것은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> Classic 헬스체크 주기는 6초이다.</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> Classic에서는 3번 응답 없으면 Unbind한다.</div>
+<div class="q-choice correct"><span class="q-choice-num">3)</span> VPC에서 한 대의 서버는 여러 Target Group에 포함될 수 없다.</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> VPC에서는 Target Group에서 헬스체크 주기를 수정할 수 있다.</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 3번</div>
+      <p>VPC 환경에서는 한 대의 서버를 여러 타겟 그룹에 등록 가능. 가용성 향상을 위한 중요한 기능이야.</p>
+    </div>
+    
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">45</div>
+    <div class="q-text">Load Balancer로 연결 가능한 프로토콜이 아닌 것은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> TCP</div>
+<div class="q-choice correct"><span class="q-choice-num">2)</span> UDP</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> HTTPS</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> SSL</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 2번</div>
+      <p>일반 LB는 TCP/HTTP 기반이며, UDP는 Network Load Balancer에서만 지원해.</p>
+    </div>
+    
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">46</div>
+    <div class="q-text">VPC LB Target Group의 디폴트 헬스체크 주기는?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> 6초</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> 10초</div>
+<div class="q-choice correct"><span class="q-choice-num">3)</span> 30초</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> 1분</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 3번</div>
+      <p>VPC LB Target Group 기본 헬스체크 = 30초. Classic LB는 6초야. 두 가지 모두 암기!</p>
+    </div>
+    
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">48</div>
+    <div class="q-text">NCP 로드밸런서에서 제공되지 않는 분배 알고리즘은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> Round Robin</div>
+<div class="q-choice correct"><span class="q-choice-num">2)</span> Weighted Round Robin</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> Least Connection</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> Source IP Hash</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 2번</div>
+      <p>NCP LB는 Round Robin, Least Connection, Source IP Hash 3가지만 지원. Weighted Round Robin은 미지원!</p>
+    </div>
+    
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">49</div>
+    <div class="q-text">SSL 인증을 지원하는 로드밸런서는?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice correct"><span class="q-choice-num">1)</span> 애플리케이션 로드밸런서</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> 네트워크 로드밸런서</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> 하이브리드 로드밸런서</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> 애플리케이션 프록시 로드밸런서</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 1번</div>
+      <p>L7 계층을 처리하는 애플리케이션 LB가 SSL 인증서 복호화(SSL Termination) 수행.</p>
+    </div>
+    
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">50</div>
+    <div class="q-text">로드밸런서 관련 설명 중 틀린 것은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> HTTP Keep-Alive: 기존 연결을 재사용하는 옵션</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> Connection Idle Timeout: 지정 시간 후 Connection 강제 Close</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> Proxy Protocol: TCP/SSL에서 Client IP 확인 가능한 프로토콜</div>
+<div class="q-choice correct"><span class="q-choice-num">4)</span> LB에서 발급된 CNAME을 ROOT DOMAIN에 등록 가능</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 4번</div>
+      <p>DNS 표준상 Root Domain(apex domain, 예: ncloud.com)에는 CNAME 레코드를 등록할 수 없어.</p>
+    </div>
+    
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">55</div>
+    <div class="q-text">세션 유지가 필요한 TCP 기반 애플리케이션에 이용할 수 있는 로드밸런서는?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> 애플리케이션 로드밸런서</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> 네트워크 로드밸런서</div>
+<div class="q-choice correct"><span class="q-choice-num">3)</span> 네트워크 프록시 로드밸런서</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> 애플리케이션 프록시 로드밸런서</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 3번</div>
+      <p>네트워크 프록시 LB는 TCP 기반 세션 유지가 필요한 애플리케이션에 최적.</p>
+    </div>
+    
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">101</div>
+    <div class="q-text">네트워크 로드밸런서의 특징으로 틀린 것은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> 별도의 설정 없이 Client IP 확인이 가능하다.</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> 분배 알고리즘은 Source IP Hash와 Round Robin 방식만 제공한다.</div>
+<div class="q-choice correct"><span class="q-choice-num">3)</span> 로드밸런서를 사용하기 위해 서버에 별도의 설정이 필요하다.</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> HTTP, HTTPS 프로토콜을 지원하지 않는다.</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 3번</div>
+      <p>네트워크 로드밸런서는 투명한 연결을 지향하며, 서버 측에 별도의 추가 설정이 필요 없어.</p>
+    </div>
+    
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">103</div>
+    <div class="q-text">Classic 환경 로드밸런서와 유사한 VPC 환경에서의 로드밸런서는?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> 애플리케이션 로드밸런서</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> 네트워크 로드밸런서</div>
+<div class="q-choice correct"><span class="q-choice-num">3)</span> 네트워크 프록시 로드밸런서</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> 애플리케이션 프록시 로드밸런서</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 3번</div>
+      <p>클래식의 Proxy 기반 LB와 기술적으로 가장 유사한 VPC 상품은 네트워크 프록시 로드밸런서.</p>
+    </div>
+    <div class="q-tip"><strong>💡</strong> Classic LB ≈ VPC 네트워크 프록시 LB</div>
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">106</div>
+    <div class="q-text">VPC 환경 로드밸런서 상품의 설명 중 틀린 것은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> 22번 포트도 로드밸런싱할 수 있다.</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> VPC 환경에서는 3가지의 로드밸런서가 제공된다.</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> 부하처리 성능에 따라 Small/Medium/Large 중 스펙을 선택할 수 있다.</div>
+<div class="q-choice correct"><span class="q-choice-num">4)</span> Proxy 방식의 로드밸런서를 사용하면, 별도의 설정없인 클라이언트의 IP를 확인할 수 없다.</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 4번</div>
+      <p>Proxy 방식(ALB, NPLB) 로드밸런서는 클라이언트 IP를 확인하기 위해 XFF 헤더 등 별도 설정이 반드시 필요해.</p>
+    </div>
+    <div class="q-tip"><strong>💡</strong> 4번은 맞는 설명이야. 즉 &#x27;별도 설정 없이는 불가능하다&#x27;가 맞는 말이므로, 이게 틀린 보기로 출제된 게 아님. 문제를 잘 읽어봐!</div>
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">19</div>
+    <div class="q-text">CDN+ 설정 항목에 대한 설명 중 올바르지 않은 것은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> Purge: CDN 캐시 서버에 저장된 콘텐츠를 삭제하는 기능</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> Secure Token: 토큰 기반 인증으로 허용된 접근에만 콘텐츠 전달</div>
+<div class="q-choice correct"><span class="q-choice-num">3)</span> Ignore Query String: 콘텐츠가 지정된 도메인에만 제공되며 다른 사이트에서 참조되는 것을 방지</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> Access Log: CDN 사용 로그를 확인할 수 있는 기능</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 3번</div>
+      <p>Ignore Query String은 URL 쿼리스트링을 무시하고 캐싱 효율을 높이는 설정이야. 참조 방지는 Referrer Domain 설정의 기능.</p>
+    </div>
+    
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">61</div>
+    <div class="q-text">NCP CDN+에 대한 설명 중 틀린 것은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> 사용량에 따라 요금이 다르다.</div>
+<div class="q-choice correct"><span class="q-choice-num">2)</span> 요금은 일 평균 전송량 X 일 수로 계산된다.</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> 월 전송량 요금에 월 요청 수 요금이 합산되어 진다.</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> CDN+와 GCDN은 요금 체계가 다르다.</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 2번</div>
+      <p>데이터 전송량 요금은 &#x27;일 평균&#x27;이 아니라 &#x27;월간 총 전송량&#x27;과 &#x27;요청 수&#x27;를 합산하여 청구돼.</p>
+    </div>
+    <div class="q-tip"><strong>💡</strong> CDN+ 요금 = 월간 전송량 요금 + 월간 요청 수 요금</div>
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">99</div>
+    <div class="q-text">CDN+ 설명 중 틀린 것은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> CDN+는 HTTP/HTTPS 프로토콜을 통해 다양한 원본 서버와의 콘텐츠 연동을 지원합니다.</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> 원본 서버로 고객이 보유 중인 다양한 웹 서버 및 NCP의 Storage, Server를 선택할 수 있습니다.</div>
+<div class="q-choice correct"><span class="q-choice-num">3)</span> HTTPS로 웹 서비스를 제공하는 경우 콘텐츠가 HTTP로 호출되면 서비스가 불가능합니다.</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> 레퍼러로 등록된 도메인 기준 접근 허용 기능을 제공합니다.</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 3번</div>
+      <p>HTTPS로 서비스 중이라도 HTTP 호출을 허용하도록 설정하면 서비스 이용이 가능해.</p>
+    </div>
+    
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">108</div>
+    <div class="q-text">CDN+ 관련 용어 설명 중 틀린 것은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> 서비스도메인: 서비스에서 콘텐츠 전송 시 사용자에게 노출되는 도메인</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> Ignore Query String: CDN 서비스가 원본 서버에 요청할 때 URL에 포함된 GET 파라미터를 제거한 후 요청</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> Referrer Domain: 콘텐츠가 지정된 도메인에만 제공되게 하여 다른 사이트에서 참조되는 것을 방지</div>
+<div class="q-choice correct"><span class="q-choice-num">4)</span> Cache Expiry: 사용자 요청에 의해 요구되는 콘텐츠를 빠르게 제공하기 위해 캐시 서버에 저장</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 4번</div>
+      <p>빠르게 처리하기 위해 데이터를 저장하는 것은 Caching이며, Expiry는 그 데이터의 유효 기간이야.</p>
+    </div>
+    <div class="q-tip"><strong>💡</strong> Cache Expiry = 캐시 만료 시간. 저장하는 행위는 Caching.</div>
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">20</div>
+    <div class="q-text">상품 생성 시 CDN을 함께 생성하는 기능이 없는 상품은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice correct"><span class="q-choice-num">1)</span> VOD Transcoder</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> Image Optimizer</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> Live Station</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> VOD Station</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 1번</div>
+      <p>VOD Transcoder는 단순 동영상 변환 도구로 CDN 자동 생성 기능 없음. Live Station, VOD Station, Image Optimizer는 CDN 동시 생성 가능.</p>
+    </div>
+    
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">23</div>
+    <div class="q-text">Image Optimizer에 대한 설명으로 틀린 것은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> 이미지 리사이즈 기능을 제공한다.</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> 이미지 크롭 기능을 제공한다.</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> 이미지 자동회전 기능을 제공한다.</div>
+<div class="q-choice correct"><span class="q-choice-num">4)</span> 이미지 일괄 변환 및 저장 기능을 제공한다.</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 4번</div>
+      <p>Image Optimizer는 요청 시 실시간으로 변환하는 서비스야. 미리 변환해서 저장하는 일괄 변환 방식이 아님!</p>
+    </div>
+    
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">96</div>
+    <div class="q-text">VOD Transcoder에 대한 설명 중 틀린 것은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> Preset은 1~5까지 설정 가능하다.</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> Codec는 H.264만 지원한다.</div>
+<div class="q-choice correct"><span class="q-choice-num">3)</span> Thumbnail를 자동 생성한다.</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> Output 경로는 File Storage와 Object Storage에 저장할 수 있다.</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 3번</div>
+      <p>VOD Transcoder는 영상 변환에 집중하며, Thumbnail 자동 생성은 별도의 파라미터 설정이 필요해.</p>
+    </div>
+    
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">60</div>
+    <div class="q-text">Live Station의 특징이 아닌 것은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> Thumbnail image를 추출하고 직접 관리할 수 있다.</div>
+<div class="q-choice correct"><span class="q-choice-num">2)</span> Live Station 생성 시 CDN을 동시에 생성할 수 없다.</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> 라이브 방송 중 일시정지 후 재생이 가능한 타임머신(Time Shift) 기능 제공.</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> 라이브 방송 종료 후 녹화 영상을 저장할 수 있다.</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 2번</div>
+      <p>Live Station은 생성 단계에서 CDN을 동시에 생성 및 연동 가능해.</p>
+    </div>
+    
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">107</div>
+    <div class="q-text">라이브 스트리밍 서비스를 진행하는데 필요한 모든 Back-end 기능을 지원하며, CDN 연동을 통해 원활한 라이브 진행을 할 수 있는 상품은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> Clova Face Recognition</div>
+<div class="q-choice correct"><span class="q-choice-num">2)</span> Live Station</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> VOD Transcoder</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> Image Optimizer</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 2번</div>
+      <p>실시간 스트리밍에 필요한 인코딩, 송출, CDN 연동을 모두 아우르는 통합 미디어 상품.</p>
+    </div>
+    
+  </div>
+</div>
+</div><div id="s6" class="section">
+<div class="section-header">
+  <div class="section-tag" style="background:rgba(0,217,126,.1);color:var(--green)">📈 SECTION 06</div>
+  <h1>Auto Scaling</h1>
+  <p>ASG와 Launch Configuration의 역할 분리, 쿨다운 개념 — 구조를 이해하면 쉬워!</p>
+</div>
+<div class="card-grid">
+  <div class="info-card green"><h4>🎯 왜 중요한가</h4><ul><li>LC vs ASG 역할 분리가 핵심</li><li>쿨다운 개념 이해</li><li>ASG 구성 항목 vs LC 구성 항목</li></ul></div>
+  <div class="info-card yellow"><h4>📌 중점 공부 포인트</h4><ul><li>OS 설정은 LC에서! ASG에서 X</li><li>쿨다운 = Init Script 실행 대기 기간</li><li>ASG 설정: LB, ACG, VPC/Subnet, 정책, 일정</li><li>NAS는 AS 구성 항목이 아님</li><li>헬스체크: 서버+LB (네트워크 트래픽 X)</li></ul></div>
+</div>
+<div class="info-card blue" style="margin-bottom:16px"><h4>📚 공부 방법</h4><p>LC=레시피(어떤 서버를 만들지), ASG=공장(얼마나 언제 만들지)로 기억해. 각각에서 설정하는 항목이 다른 것이 포인트야.</p></div>
+<div class="q-section-title">Auto Scaling 구성 요소</div>
+<div class="card-grid">
+<div class="info-card teal"><h4>Launch Configuration (LC)</h4><ul><li>서버의 OS, 스펙, 이미지, Init Script 정의</li><li>로드밸런서는 LC가 아닌 ASG에서 설정!</li><li>내 서버 이미지 사용 가능</li></ul></div>
+<div class="info-card blue"><h4>Auto Scaling Group (ASG)</h4><ul><li>LC를 가져와서 정책/일정/LB/ACG 관리</li><li>최소/기대/최대 용량 설정</li><li>헬스체크: 서버 상태 + LB 응답</li></ul></div>
+</div>
+
+<div class="q-section-title">관련 기출문제 해설 <span>5문항</span></div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">9</div>
+    <div class="q-text">Auto Scaling Group(ASG)에서 설정 가능한 내용이 아닌 것은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice correct"><span class="q-choice-num">1)</span> 오토스케일링으로 생성될 서버의 OS</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> 오토스케일링에서 사용할 Launch Configuration</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> 서버 증가, 감소 정책</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> 일정 설정</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 1번</div>
+      <p>서버의 OS와 사양은 Launch Configuration(LC)에서 정의해. ASG는 LC를 가져와서 언제/얼마나 늘릴지 관리만 해.</p>
+    </div>
+    <div class="q-tip"><strong>💡</strong> LC = 레시피(어떤 서버를 만들지), ASG = 공장(얼마나, 언제 만들지)</div>
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">77</div>
+    <div class="q-text">Auto Scaling의 Launch Configuration 구성 시 구성 가능한 항목이 아닌 것은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> 생성될 서버의 OS</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> 사전에 만들어놓은 내 서버 이미지</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> Init Script</div>
+<div class="q-choice correct"><span class="q-choice-num">4)</span> 로드밸런서</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 4번</div>
+      <p>LC는 서버의 OS, 스펙, 스크립트를 설정하며, 로드밸런서는 ASG 단계에서 연결해.</p>
+    </div>
+    <div class="q-tip"><strong>💡</strong> LC = 서버 설정(OS/이미지/스크립트), ASG = 인프라 연결(LB/ACG/VPC)</div>
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">10</div>
+    <div class="q-text">다음 설명은 Auto Scaling의 어떤 항목인가? (새 서버가 준비되기까지 모니터링 알람을 무시하는 기간)</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice correct"><span class="q-choice-num">1)</span> 쿨다운</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> 헬스체크</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> 기대용량</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> Policy</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 1번</div>
+      <p>쿨다운(Cooldown): 새 서버 생성 후 Init Script 실행, 패키지 설치 등 준비 시간 동안 또 다른 스케일링이 일어나지 않도록 대기하는 기간.</p>
+    </div>
+    
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">75</div>
+    <div class="q-text">오토스케일링 그룹(ASG)에 대한 설명으로 틀린 것은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> 하나의 그룹에서 생성 가능한 최대 서버 대수는 30대이다.</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> 기대 용량은 최소 용량보다 크거나 같아야 한다.</div>
+<div class="q-choice correct"><span class="q-choice-num">3)</span> 헬스체크 유형에는 서버, 네트워크 트래픽, 로드밸런서가 있다.</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> 하나의 ASG에는 최대 10개의 로드밸런서를 연결할 수 있다.</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 3번</div>
+      <p>오토스케일링 헬스체크는 서버 상태와 로드밸런서 응답을 기준으로 하며, 네트워크 트래픽 자체는 헬스체크 유형이 아니야.</p>
+    </div>
+    
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">54</div>
+    <div class="q-text">Auto Scaling 구성 시 설정할 수 있는 항목이 아닌 것은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice correct"><span class="q-choice-num">1)</span> NAS</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> ACG</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> Load Balancer</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> VPC / Subnet</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 1번</div>
+      <p>NAS는 공유 저장소로 AS 구성 시 자동 설정 항목이 아니야. AS는 서버를 복제하는 기능이고, 저장소는 별도 연결해야 해.</p>
+    </div>
+    
+  </div>
+</div>
+</div><div id="s7" class="section">
+<div class="section-header">
+  <div class="section-tag" style="background:rgba(255,209,102,.1);color:var(--yellow)">🗄️ SECTION 07</div>
+  <h1>Database & Analytics</h1>
+  <p>Cloud DB 세부 스펙, Kafka 서비스명, 분석 서비스 SDK 종류를 암기해야 해.</p>
+</div>
+<div class="card-grid">
+  <div class="info-card green"><h4>🎯 왜 중요한가</h4><ul><li>Cloud DB 세부 스펙 암기</li><li>Kafka 서비스 이름</li><li>로그 서비스 용량/기간 한도</li><li>DBMS 지원 여부</li></ul></div>
+  <div class="info-card yellow"><h4>📌 중점 공부 포인트</h4><ul><li>Cloud DB 백업 최대 보관 = 30일 (20일 X)</li><li>Kafka = Cloud Data Streaming Service</li><li>SOCK SDK는 없음! (LOG, HTTPS, Mobile)</li><li>Cloud Log Analytics: 최대 100GB, 30일</li><li>Oracle = Cloud DB 미지원 (VM 직접 설치)</li></ul></div>
+</div>
+<div class="info-card blue" style="margin-bottom:16px"><h4>📚 공부 방법</h4><p>DB 관련 문제는 숫자(30일, 10개 Slave)가 함정이야. 서비스명 암기: Kafka=Cloud Data Streaming Service, 로그분석=CLA.</p></div>
+
+
+<div class="q-section-title">관련 기출문제 해설 <span>8문항</span></div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">31</div>
+    <div class="q-text">Cloud DB for MySQL과 관련하여 잘못된 설명은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> Cloud DB for MySQL은 자동 Fail-over 기능을 제공한다.</div>
+<div class="q-choice correct"><span class="q-choice-num">2)</span> 최대 백업 파일 보관은 20일이다.</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> 최대 10개의 Slave DB를 생성할 수 있다.</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> Slave DB로의 읽기 부하분산이 가능하다.</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 2번</div>
+      <p>DB 자동 백업 데이터 최대 보관 기간은 30일. 20일이 아니야!</p>
+    </div>
+    
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">114</div>
+    <div class="q-text">Cloud DB 상품에서 제공하고 있지 않은 DBMS는?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice correct"><span class="q-choice-num">1)</span> Oracle</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> MS-SQL</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> MySQL</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> Redis</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 1번</div>
+      <p>MS-SQL, MySQL, Redis 등은 제공하나 Oracle은 Cloud DB(관리형) 형태가 아닌 VM 직접 설치 방식으로 써야 해.</p>
+    </div>
+    <div class="q-tip"><strong>💡</strong> Oracle = VM에 직접 설치. Cloud DB 지원 DBMS: MySQL, MS-SQL, Redis 등</div>
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">28</div>
+    <div class="q-text">Apache Kafka Cluster를 제공하는 서비스 이름은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice correct"><span class="q-choice-num">1)</span> Cloud Data Streaming Service</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> Cloud Search</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> Data Analytics Service</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> Cloud Advisor</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 1번</div>
+      <p>Kafka 클러스터 관리 서비스 = Cloud Data Streaming Service. 이름 그대로 외워!</p>
+    </div>
+    
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">3</div>
+    <div class="q-text">&quot;Cloud Hadoop&quot; 상품은 어떤 카테고리에 속해 있나?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> Compute</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> Database</div>
+<div class="q-choice correct"><span class="q-choice-num">3)</span> Analytics</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> AI-Application Service</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 3번</div>
+      <p>Cloud Hadoop은 빅데이터 분석(Hadoop, Spark)을 위한 서비스로 Analytics 카테고리.</p>
+    </div>
+    
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">29</div>
+    <div class="q-text">Effective Log Search &amp; Analytics의 로그 전송 방법이 아닌 것은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> HTTPS SDK</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> IOS SDK</div>
+<div class="q-choice correct"><span class="q-choice-num">3)</span> SOCK SDK</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> LOG SDK</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 3번</div>
+      <p>SOCK SDK는 존재하지 않아. 제공되는 SDK는 HTTPS SDK, LOG SDK, Mobile(iOS/Android) SDK.</p>
+    </div>
+    
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">66</div>
+    <div class="q-text">Cloud Log Analytics에 저장할 수 있는 최대 로그 용량은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice correct"><span class="q-choice-num">1)</span> 100GB</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> 200GB</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> 300GB</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> 사용자가 설정할 수 있다.</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 1번</div>
+      <p>Cloud Log Analytics가 한 번에 수용 및 저장할 수 있는 기본 최대 로그 용량은 100GB.</p>
+    </div>
+    <div class="q-tip"><strong>💡</strong> 최대 용량=100GB, 최대 기간=30일 - 둘 다 암기!</div>
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">68</div>
+    <div class="q-text">Cloud Log Analytics의 최대 저장 기간은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice correct"><span class="q-choice-num">1)</span> 30일</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> 120일</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> 180일</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> 사용자가 설정할 수 있다.</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 1번</div>
+      <p>로그 데이터를 보관하는 최대 기간은 기본 30일로 제한.</p>
+    </div>
+    
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">74</div>
+    <div class="q-text">NCP에서 제공하는 시스템 로그 분석 서비스는?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> RUA</div>
+<div class="q-choice correct"><span class="q-choice-num">2)</span> CLA</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> ELSA</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> SENS</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 2번</div>
+      <p>서버 및 서비스의 로그를 수집하고 분석하는 전문 상품 명칭은 CLA(Cloud Log Analytics).</p>
+    </div>
+    <div class="q-tip"><strong>💡</strong> CLA = Cloud Log Analytics = 로그 분석 서비스</div>
+  </div>
+</div>
+</div><div id="s8" class="section">
+<div class="section-header">
+  <div class="section-tag" style="background:rgba(255,107,107,.1);color:var(--red)">🔒 SECTION 08</div>
+  <h1>Security & Monitoring</h1>
+  <p>에이전트 필요 여부, Security Monitoring 항목, System Security Checker OS별 점검 항목을 구분하자.</p>
+</div>
+<div class="card-grid">
+  <div class="info-card green"><h4>🎯 왜 중요한가</h4><ul><li>에이전트 필요/불필요 서비스 구분</li><li>Security Monitoring 제공 항목</li><li>OS별 보안 점검 항목 차이</li><li>보안 상품 명칭 암기</li></ul></div>
+  <div class="info-card yellow"><h4>📌 중점 공부 포인트</h4><ul><li>Cloud Insight = 에이전트 불필요!</li><li>Security Monitoring = IDS/IPS/WAF</li><li>Guest 계정 제한 = Windows 전용</li><li>이벤트 설정 불가: Object Storage, CDN+</li><li>Web Safer는 없음! (App/File/Site Safer만)</li></ul></div>
+</div>
+<div class="info-card blue" style="margin-bottom:16px"><h4>📚 공부 방법</h4><p>보안 서비스 문제는 에이전트 필요 여부와 각 서비스가 제공하는 항목 목록이 핵심이야. 특히 존재하지 않는 서비스명(Web Safer, SOCK SDK 등)을 걸러내는 능력이 필요해.</p></div>
+
+
+<div class="q-section-title">관련 기출문제 해설 <span>6문항</span></div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">4</div>
+    <div class="q-text">사용자가 Agent를 설치해야만 사용할 수 있는 서비스가 아닌 것은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice correct"><span class="q-choice-num">1)</span> Cloud Insight</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> System Security Checker</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> CLA</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> 백업 서비스</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 1번</div>
+      <p>Cloud Insight는 하이퍼바이저 수준에서 CPU 등 기본 지표를 에이전트 없이 수집 가능.</p>
+    </div>
+    
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">27</div>
+    <div class="q-text"><span class="tag multi">복수정답</span> 이벤트 설정이 불가능한 상품은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> Server</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> NAS</div>
+<div class="q-choice correct"><span class="q-choice-num">3)</span> Object Storage</div>
+<div class="q-choice correct"><span class="q-choice-num">4)</span> CDN+</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 3번, 4번</div>
+      <p>Object Storage와 CDN+는 Cloud Insight 등을 통한 자체 이벤트 알림 설정 미지원.</p>
+    </div>
+    
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">33</div>
+    <div class="q-text">Security Monitoring에서 제공되지 않는 항목은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> IDS</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> IPS</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> WAF</div>
+<div class="q-choice correct"><span class="q-choice-num">4)</span> 침해탐지</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 4번</div>
+      <p>Security Monitoring = IDS, IPS, WAF 보안 장비 관제 서비스. 별도의 침해탐지 분석은 서비스 항목이 아니야.</p>
+    </div>
+    
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">56</div>
+    <div class="q-text">System Security Checker에서 Linux 서버의 점검 항목이 아닌 것은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> UMASK 설정관리</div>
+<div class="q-choice correct"><span class="q-choice-num">2)</span> Guest 계정 사용 제한</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> 홈 디렉토리 권한 설정</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> Anonymous FTP 비활성화</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 2번</div>
+      <p>Guest 계정 사용 제한은 Windows OS 전용 점검 항목. 리눅스에는 Guest 계정 개념이 다르게 작동해.</p>
+    </div>
+    
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">63</div>
+    <div class="q-text">NCP App Safer에서 앱 실행 환경 탐지가 가능한 부분이 아닌 것은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> 루팅 탐지</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> 애플리케이션 변조 탐지</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> 메모리 변조 탐지</div>
+<div class="q-choice correct"><span class="q-choice-num">4)</span> APK 추출 탐지</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 4번</div>
+      <p>App Safer는 실시간 실행 환경 보안(루팅, 변조)에 특화되어 있으며, 단순 파일 형태인 APK 추출은 탐지 대상이 아니야.</p>
+    </div>
+    <div class="q-tip"><strong>💡</strong> App Safer: 루팅 탐지, 앱 변조 탐지, 메모리 변조 탐지. APK 추출은 X.</div>
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">115</div>
+    <div class="q-text">NCP 보안 상품 중 없는 상품은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> App Safer</div>
+<div class="q-choice correct"><span class="q-choice-num">2)</span> Web Safer</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> File Safer</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> Site Safer</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 2번</div>
+      <p>App, File, Site Safer 등은 실재하나 Web Safer라는 이름의 전용 상품은 존재하지 않아.</p>
+    </div>
+    <div class="q-tip"><strong>💡</strong> 보안 상품: App Safer(앱), File Safer(파일), Site Safer(사이트). Web Safer는 없음!</div>
+  </div>
+</div>
+</div><div id="s9" class="section">
+<div class="section-header">
+  <div class="section-tag" style="background:rgba(76,158,255,.1);color:var(--blue)">🤖 SECTION 09</div>
+  <h1>AI & Application Services</h1>
+  <p>Clova 계열 서비스 이름과 기능 매핑, 챗봇 연동 채널 — 혼동하기 쉬운 파트야.</p>
+</div>
+<div class="card-grid">
+  <div class="info-card green"><h4>🎯 왜 중요한가</h4><ul><li>서비스명과 기능 매핑이 핵심</li><li>TTS vs STT vs OCR 구분</li><li>챗봇 연동 가능/불가 채널</li><li>존재하지 않는 서비스명 구분</li></ul></div>
+  <div class="info-card yellow"><h4>📌 중점 공부 포인트</h4><ul><li>Clova Voice = TTS (텍스트→음성)</li><li>Clova Speech = STT (음성→텍스트)</li><li>Object Detection = 사물 감지 (음성 아님!)</li><li>챗봇 연동 X = 트위터</li><li>Clova Image Recognition은 없는 서비스명</li></ul></div>
+</div>
+<div class="info-card blue" style="margin-bottom:16px"><h4>📚 공부 방법</h4><p>AI 서비스 문제는 서비스명 ↔ 기능 매핑이 전부야. Speech/Voice/Face/OCR 4개를 확실히 외우고, 헷갈리는 Object Detection이 TTS가 아님을 기억해.</p></div>
+<div class="q-section-title">핵심 AI 서비스 정리</div>
+<div class="term-grid">
+<div class="term"><div class="label">Clova Speech Recognition</div><p>음성 → 텍스트 변환 (STT, Speech-to-Text)</p></div>
+<div class="term"><div class="label">Clova Voice</div><p>텍스트 → 음성 변환 (TTS, Text-to-Speech)</p></div>
+<div class="term"><div class="label">Clova Face Recognition</div><p>얼굴 감지·인식·정보 제공</p></div>
+<div class="term"><div class="label">Clova OCR</div><p>이미지/문서에서 문자(텍스트) 인식</p></div>
+<div class="term"><div class="label">Papago NMT</div><p>다국어 자동 번역 서비스</p></div>
+<div class="term"><div class="label">Object Detection</div><p>이미지/영상 내 사물(Object) 감지·분류. <strong style="color:var(--red)">TTS가 아님!</strong></p></div>
+</div>
+
+<div class="q-section-title">관련 기출문제 해설 <span>3문항</span></div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">62</div>
+    <div class="q-text">Application 서비스 명과 설명 중 잘못된 것은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> Clova Speech Recognition: 사람의 목소리를 텍스트로 바꿔주는 서비스</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> Clova Face Recognition: 이미지 속 얼굴을 감지하고 인식하여 정보를 제공하는 서비스</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> Papago NMT: 입력한 텍스트를 대규모 학습 데이터 기반으로 여러 나라 언어로 자동 번역하는 서비스</div>
+<div class="q-choice correct"><span class="q-choice-num">4)</span> Object Detection: 입력한 텍스트를 자연스러운 목소리로 재생하는 음성 합성 API 서비스</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 4번</div>
+      <p>텍스트를 목소리로 변환하는 서비스는 Clova Voice이며, Object Detection은 영상/이미지 내 사물을 식별하는 기능.</p>
+    </div>
+    <div class="q-tip"><strong>💡</strong> TTS(Text to Speech) = Clova Voice. Object Detection = 사물 감지. 헷갈리지 말 것!</div>
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">70</div>
+    <div class="q-text">NCP AI 서비스에서 제공하지 않는 상품은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> Clova OCR</div>
+<div class="q-choice correct"><span class="q-choice-num">2)</span> Clova Image Recognition</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> Clova Voice</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> Clova Face Recognition</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 2번</div>
+      <p>Clova OCR, Voice, Face 등은 있으나 Image Recognition이라는 명칭의 통합 상품은 별도로 없어.</p>
+    </div>
+    <div class="q-tip"><strong>💡</strong> Clova 계열: OCR(문자인식), Speech(음성인식), Voice(TTS), Face(얼굴인식). Image Recognition은 없음!</div>
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">69</div>
+    <div class="q-text">NCP 챗봇 서비스와 채널 연동되는 서비스가 아닌 것은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> 라인</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> 톡톡</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> 페이스북</div>
+<div class="q-choice correct"><span class="q-choice-num">4)</span> 트위터</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 4번</div>
+      <p>네이버 톡톡, 라인, 페이스북 등 주요 SNS와 연동되지만 트위터 연동은 지원하지 않아.</p>
+    </div>
+    <div class="q-tip"><strong>💡</strong> 챗봇 연동 X = 트위터. NCP 소통 채널 X = 트위터. 트위터가 답이 되는 패턴!</div>
+  </div>
+</div>
+</div><div id="s10" class="section">
+<div class="section-header">
+  <div class="section-tag" style="background:rgba(56,217,192,.1);color:var(--teal)">🧩 SECTION 10</div>
+  <h1>기타 서비스</h1>
+  <p>Workplace, Media 카테고리, 메일 서비스 — 짧지만 확실히 알고 가야 해.</p>
+</div>
+<div class="card-grid">
+  <div class="info-card green"><h4>🎯 왜 중요한가</h4><ul><li>Workplace 제공/미제공 기능 구분</li><li>Media 카테고리 상품명 (AWS 상품 구분)</li><li>메일 서비스 기능 이름</li></ul></div>
+  <div class="info-card yellow"><h4>📌 중점 공부 포인트</h4><ul><li>Workplace: 결제/인사/메신저 O, 스프레드시트 X</li><li>Elastic Transcoder = AWS 것!</li><li>치환 태그 = Outbound Mailer 개인화 기능</li></ul></div>
+</div>
+<div class="info-card blue" style="margin-bottom:16px"><h4>📚 공부 방법</h4><p>기타 서비스는 Workplace에 없는 것(스프레드시트), AWS 상품명(Elastic Transcoder)을 구분하는 것이 핵심이야.</p></div>
+
+
+<div class="q-section-title">관련 기출문제 해설 <span>3문항</span></div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">30</div>
+    <div class="q-text">Workplace에서 제공되지 않는 기능은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> 결제시스템</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> 인사시스템</div>
+<div class="q-choice correct"><span class="q-choice-num">3)</span> 스프레드 시트</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> 메신저</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 3번</div>
+      <p>Workplace는 기업 업무 시스템(HR, 결제, 메신저 등)이야. 구글 시트 같은 스프레드시트 툴은 포함 안 돼.</p>
+    </div>
+    
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">42</div>
+    <div class="q-text">Media 카테고리 상품이 아닌 것은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> Live Station</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> VOD Station</div>
+<div class="q-choice "><span class="q-choice-num">3)</span> VOD Transcoder</div>
+<div class="q-choice correct"><span class="q-choice-num">4)</span> Elastic Transcoder</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 4번</div>
+      <p>Elastic Transcoder = AWS 서비스! NCP는 VOD Transcoder를 제공해.</p>
+    </div>
+    
+  </div>
+</div>
+
+<div class="q-card" onclick="toggleQ(this)">
+  <div class="q-header">
+    <div class="q-num">67</div>
+    <div class="q-text">Outbound Mailer에서 메일 제목과 본문에서 스프레드시트나 DB의 열 데이터를 순차적으로 입력하기 위한 기능은?</div>
+    <div class="q-toggle">▾</div>
+  </div>
+  <div class="q-body">
+    <div class="q-choices"><div class="q-choice "><span class="q-choice-num">1)</span> 변수 치환</div>
+<div class="q-choice "><span class="q-choice-num">2)</span> 대량 변수 입력</div>
+<div class="q-choice correct"><span class="q-choice-num">3)</span> 치환 태그</div>
+<div class="q-choice "><span class="q-choice-num">4)</span> DM 입력</div>
+</div>
+    <div class="q-answer">
+      <div class="ans-label">✓ 정답: 3번</div>
+      <p>개인화된 메일 발송을 위해 이름이나 정보를 순차적으로 자동 입력하는 기능은 치환 태그.</p>
+    </div>
+    <div class="q-tip"><strong>💡</strong> 메일 개인화 자동 입력 = 치환 태그</div>
+  </div>
+</div>
+</div>
+</main>
+</div>
+<script>
+function showSection(id){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.currentTarget.classList.add('active');
+  window.scrollTo(0,0);
+}
+function toggleQ(card){card.classList.toggle('open');}
+</script>
+</body>
+</html>
